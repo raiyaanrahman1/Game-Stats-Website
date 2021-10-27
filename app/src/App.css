@@ -22,3 +22,52 @@ nav {
 nav button {
   padding: 3px;
 }
+
+.game-icon {
+  color: black;
+  background-color: white;
+  display: inline-flex;
+  flex-direction: column;
+  margin: 20px;
+  width: 200px;
+  height: 170px;
+  padding: 5px;
+}
+
+.sample-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(154, 226, 255);
+  height: 100px;
+  margin-bottom:20px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.title-publisher {
+  display: inline-block;
+}
+
+.publisher {
+  color:grey;
+}
+
+.green-percent {
+  color:rgb(69, 255, 62);
+}
+
+.red-percent {
+  color: red;
+}
+
+.yellow-percent {
+  color: rgb(255, 230, 0);
+}
+
+.percent {
+  display: inline-block;
+}
