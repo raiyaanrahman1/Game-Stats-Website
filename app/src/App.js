@@ -1,7 +1,7 @@
 import './App.css';
 import React, {useState} from 'react';
 import Home from './components/Home.js';
-import Games from './components/Games.js';
+import Games from './components/game/Games';
 import Charts from './components/Charts.js';
 
 function App() {

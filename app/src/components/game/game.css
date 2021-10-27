@@ -1,0 +1,11 @@
+.game-cover {
+    position: absolute;
+    width: 30vw;
+    max-height: 200px;
+}
+
+.game-info {
+    margin-left: 35vw;
+    width: 55vw;
+    height: 200px;
+}
