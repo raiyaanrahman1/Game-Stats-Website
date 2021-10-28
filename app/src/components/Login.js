@@ -8,7 +8,7 @@ function Login() {
         e.preventDefault();
     
         if (!username || !password) {
-          alert("Please a username and password.");
+          alert("Please enter a username and password.");
           return;
         }
     
@@ -26,14 +26,12 @@ function Login() {
       };
 
     return (
-        <form onSubmit={onLogin}>
-            <label>Username: </label>
-            <input type="username" name="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
-            <p></p> {/*This is is just temporary until we do CSS*/}
-            <label>Password: </label>
-            <input type="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-            <p></p> {/*This is is just temporary until we do CSS*/}
-            <input type="submit" value="Login"/>
+        <form className="loginForm"onSubmit={onLogin}>
+            <input className="loginInput" type="text" name="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
+            <p></p> 
+            <input className="loginInput" type="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+            <p>Don't have an account? Sign Up</p> {/*This is is just temporary until we do CSS*/}
+            <input className="loginBtn" type="submit" value="Login"/>
         </form>
     )
 }

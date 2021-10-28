@@ -1,4 +1,5 @@
 * {
+  box-sizing: border-box;
   margin: 0px;
   padding: 0px;
 }
@@ -9,18 +10,31 @@ body {
   margin: 20px;
 }
 
-nav li {
-  list-style: none;
-  display: inline-block;
-  margin: 5px;
-}
-
-nav {
+.navBar {
+  background-color: darkorchid;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
   margin-bottom: 20px;
+  overflow: hidden;
+  display: inline-block;
 }
 
-nav button {
-  padding: 3px;
+.navBar li button{
+  background-color: darkorchid;
+  border: none;
+  margin: 0;
+  color: white;
+  width: 100px;
+  height: 33px;
+  float: left;
+}
+
+.navBar li button:hover {
+  background-color: orchid;
+  color: white;
+  cursor: pointer;
 }
 
 .game-icon {
@@ -70,4 +84,30 @@ nav button {
 
 .percent {
   display: inline-block;
+}
+
+.loginForm {
+  margin: auto;
+  max-width: 500px;
+}
+
+
+.loginInput {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.loginBtn {
+  background-color: darkorchid;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 14px 20px;
+  margin: 8px 0;
+  float: right;
 }

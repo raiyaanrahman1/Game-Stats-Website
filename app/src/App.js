@@ -26,14 +26,12 @@ function App() {
   }
   return (
     <div className="App">
-      <nav>
-        <ul>
-            <li> <button onClick={()=>{setPage("home");}}> Home </button>  </li>
-            <li> <button onClick={()=>{setPage("games");}}> Games </button> </li>
-            <li> <button onClick={()=>{setPage("charts");}}> Charts </button> </li>
-            <li> <button onClick={()=>{setPage("login");}}> Login </button> </li>
-        </ul>
-      </nav>
+      <ul className="navBar">
+          <li> <button onClick={()=>{setPage("home");}}> Home </button>  </li>
+          <li> <button onClick={()=>{setPage("games");}}> Games </button> </li>
+          <li> <button onClick={()=>{setPage("charts");}}> Charts </button> </li>
+          <li> <button onClick={()=>{setPage("login");}}> Login </button> </li>
+      </ul>
       {mainComponent}
     </div>
   );
