@@ -34,7 +34,7 @@
     border-style: outset;
 }
 
-.game-icon {
+.game-icon-chart {
     position: absolute;
     bottom: 0;
     color: black;
@@ -48,7 +48,7 @@
     border-style: outset;
 }
   
-.sample-image {
+.sample-image-chart {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,12 +58,12 @@
     margin-bottom:5px;
 }
   
-.info {
+.info-chart {
     display: flex;
     justify-content: space-around;
 }
   
-.title-publisher {
+.title-publisher-chart {
     display: inline-block;
 }
 
