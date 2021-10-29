@@ -7,7 +7,7 @@
 .game-info {
     margin-left: 35vw;
     width: 55vw;
-    height: 200px;
+    min-height: 220px
 }
 
 .game-likebar {
@@ -17,6 +17,8 @@
     border: 2px solid black;
     padding: 2px 3px;
     clear: both;
+    text-align: center;
+    width: 110px;
 }
 
 .game-rate {
@@ -38,4 +40,8 @@
 .game-review p {
     margin: 5px;
     margin-bottom: 15px;
+}
+
+.game-review {
+    border: 1px solid black;
 }
