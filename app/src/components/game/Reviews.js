@@ -23,16 +23,14 @@ class Reviews extends React.Component {
         //         <p>{review.content}</p>
         //     </div>
         // }
+        let reviews = [];
+        for(let i = 0; i < this.state.reviews.length; i++){
+            reviews.push(<div key={i} className="game-review"> <h3>{this.state.reviews[i].username}</h3> <p>{this.state.reviews[i].content}</p></div>);
+        }
 
         return (
             <div className = "game-reviews">
-                
-                {this.state.reviews.map((review) => {
-                    return <div className="game-review">
-                        <h3>{review.username}</h3>
-                        <p>{review.content}</p>
-                    </div> 
-                } ) }
+                {reviews}
             </div>
         )
     }

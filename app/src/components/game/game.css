@@ -22,3 +22,20 @@
 .game-rate {
     display: inline;
 }
+
+.game-title {
+    margin: 5px;
+}
+
+.game-publisher {
+    margin: 5px;
+}
+
+.game-genre {
+    margin: 5px;
+}
+
+.game-review p {
+    margin: 5px;
+    margin-bottom: 15px;
+}
