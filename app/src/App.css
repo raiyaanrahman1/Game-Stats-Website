@@ -38,7 +38,7 @@ body {
   cursor: pointer;
 }
 
-.game-icon {
+.game-icon-regular {
   color: black;
   background-color: white;
   display: inline-flex;
@@ -46,6 +46,18 @@ body {
   margin: 20px;
   width: 200px;
   height: 170px;
+  padding: 5px;
+}
+
+.game-icon-small {
+  color: black;
+  background-color: white;
+  display: inline-flex;
+  flex-direction: column;
+  margin: 4px;
+  margin-bottom: 20px;
+  width: 150px;
+  height: 135px;
   padding: 5px;
 }
 
@@ -113,6 +125,7 @@ body {
   align-items: center;
 }
 
+
 .chart-bar {
   position: absolute;
   bottom: 60px;
@@ -175,3 +188,125 @@ display: inline-block;
 display: block;
 font-size: 50%;
 }
+
+/* ##################################################   Login   ################################################## */
+.loginForm {
+  width: 25%;
+}
+
+.loginInput {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  
+}  
+
+.loginBtn {
+  background-color: darkorchid;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 14px 20px;
+  margin: 8px 0;
+  float: right;
+}
+
+/* ##################################################   Profile   ################################################## */
+
+.profile-page {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.profile-left {
+  color: black;
+  background-color: slategrey;
+  margin: 20px;
+  width: 250px;
+  height: 500px;
+  padding: 5px;
+  border: solid;
+  border-width: 5px;
+  border-color: slategrey;
+  border-radius: 2%;
+}
+
+.games-container {
+  color: black;
+  background-color: slategrey;
+  margin: 20px;
+  margin-left: 5px;
+  width: 180px;
+  height: 500px;
+  padding: 5px;
+  border: solid;
+  border-width: 5px;
+  border-color: slategrey;
+  border-radius: 2%;
+}
+
+.reviews-container {
+  color: black;
+  background-color: slategrey;
+  margin: 20px;
+  margin-left: 5px;
+  width: 180px;
+  height: 500px;
+  padding: 5px;
+  border: solid;
+  border-width: 5px;
+  border-color: slategrey;
+  border-radius: 2%;
+}
+
+.sample-profile-image {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: seagreen;
+  height: 200px;
+  width: 200px;
+  margin-bottom:20px;
+  border-radius: 50%;
+}
+
+.profile-name-desc {
+  display: inline;
+  float: left;
+}
+
+.profile-name-desc h4 {
+  color: darkblue;
+  font-size: larger;
+}
+
+.profile-name-desc h5 {
+  color: darkgray;
+}
+
+.profile-btn {
+  display: inline-block;
+  background-color: darkorchid;
+  color: black;
+  border: none;
+  cursor: pointer;
+  margin: auto;
+  margin-top: 10px;
+  padding: 2px;
+  width: 100%;
+  height: 25px;
+}
+
+.profile-btn:hover {
+  background-color: purple;
+}
+
+.profile-hardware{
+  margin-top: 15px;
+}
+

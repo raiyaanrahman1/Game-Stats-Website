@@ -19,7 +19,7 @@ const Home = (props) => {
         else {
             colour = "green-percent";
         }
-        game_icons.push(<GameIcon percent={percent} percentColour={colour} key={i}/>);
+        game_icons.push(<GameIcon size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
     }
     
     return (
