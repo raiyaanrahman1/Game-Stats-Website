@@ -1,5 +1,4 @@
 import React from 'react';
-import './charts.css';
 
 const GameIcon_Chart = (props) => {
     
