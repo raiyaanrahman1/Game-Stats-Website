@@ -9,3 +9,16 @@
     width: 55vw;
     height: 200px;
 }
+
+.game-likebar {
+    float: left;
+    position: absolute;
+    right: 5vw;
+    border: 2px solid black;
+    padding: 2px 3px;
+    clear: both;
+}
+
+.game-rate {
+    display: inline;
+}

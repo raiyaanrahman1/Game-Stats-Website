@@ -1,37 +1,52 @@
 import React from 'react';
 import './game.css';
+import LikeBar from './LikeBar.js';
+import Reviews from './Reviews.js';
 
-const Games = (props) => {
+class Games extends React.Component {
 
-    const gameData = {
-        gameID: 0,
-        title: 'Title',
-        publisher: '',
-        genres: ['G1', 'G2', 'G3'],
-        description: '',
-        coverArt: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg',
-        numVotes: 0,
-        numLikes: 0,
-        numReviews: 1,
-        reviews: [0],   // review ids
+    constructor(props) {
+        super(props);
+        this.state = {
+            gameData: {
+                gameID: 0,
+                title: 'Title',
+                publisher: 'publisher',
+                genres: ['G1', 'G2', 'G3'],
+                description: 'description description description description description description description description description description description description description description description description description description description description',
+                coverArt: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg',
+                numVotes: 0,
+                numLikes: 0,
+                numReviews: 1,
+                reviews: [0],   // review ids
+            }
+        }
     }
+     
     
-
-    return (
-        <div className="game-main">
-            <img src={gameData.coverArt} alt="Cover" className = "game-cover"/>
-            <div className="game-info">
-                <h2 className = "game-title">{gameData.title}</h2>
-                <h3 className = "game-publisher">{gameData.publisher}</h3>
-                <div className = "game-genre">{gameData.genres.map((genres) => (<span>{genres} </span>) )} </div>
-                <hr></hr>
-                <p className = "game-description">{gameData.description}</p>
-            
+    render() {
+        return (
+            <div className="game-main">
+                <img src={this.state.gameData.coverArt} alt="Cover" className = "game-cover"/>
+                <LikeBar numLikes={this.state.gameData.numLikes} numReviews={this.state.gameData.numReviews} />
+                <div className="game-info">
+                    <h2 className = "game-title">{this.state.gameData.title}</h2>
+                    <h3 className = "game-publisher">{this.state.gameData.publisher}</h3>
+                    <div className = "game-genre">{this.state.gameData.genres.map((genres) => (<span>{genres} </span>) )} </div>
+                    <hr></hr>
+                    <p className = "game-description">{this.state.gameData.description}</p>
                 
-            </div>    
-            <h3 className="game-rate"> {gameData.numLikes / gameData.numVotes} </h3>
-        </div>
-    );
+                    
+                </div>
+                <div className = "game-buttoms">
+
+                </div>
+                
+                <Reviews />
+            </div>
+            
+        )
+    }
     
 };
 
