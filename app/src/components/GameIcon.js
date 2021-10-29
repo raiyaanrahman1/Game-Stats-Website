@@ -3,7 +3,7 @@ import React from 'react';
 const GameIcon = (props) => {
     
     return (
-        <div className="game-icon">
+        <div className={props.size}>
             <div className="sample-image"> Sample Image </div>
             <div className="info">
                 <div className="title-publisher">
