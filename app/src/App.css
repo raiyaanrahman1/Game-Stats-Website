@@ -22,7 +22,8 @@ body {
   display: inline-block;
 }
 
-.navBar li button{
+.navBar li a {
+  display: block;
   background-color: darkorchid;
   border: none;
   margin: 0;
@@ -32,7 +33,7 @@ body {
   float: left;
 }
 
-.navBar li button:hover {
+.navBar li a:hover {
   background-color: orchid;
   color: white;
   cursor: pointer;

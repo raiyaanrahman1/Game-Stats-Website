@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    let history = useHistory();
 
     const onLogin = (e) => {
         e.preventDefault();
@@ -17,11 +19,13 @@ function Login(props) {
     
         if (username === "user" && password === "user") {
             props.setLoggedIn(true);
-            props.setPage("home");
+            //props.setPage("home");
+            history.push("/");
             //login to user view
         } else if (username === "admin" && password === "admin") {
             props.setLoggedIn(true);
-            props.setPage("home");
+            //props.setPage("home");
+            history.push("/");
             //login to admin view
         } else {
             alert("Incorrect username or password.");

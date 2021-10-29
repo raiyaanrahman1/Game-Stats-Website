@@ -3,7 +3,7 @@ import './game.css';
 import LikeBar from './LikeBar.js';
 import Reviews from './Reviews.js';
 
-class Games extends React.Component {
+class Game extends React.Component {
 
     constructor(props) {
         super(props);
@@ -75,4 +75,4 @@ class Games extends React.Component {
     
 };
 
-export default Games;
+export default Game;
