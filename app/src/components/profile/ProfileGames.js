@@ -16,7 +16,7 @@ function ProfileGames() {
         else {
             colour = "green-percent";
         }
-        game_icons.push(<GameIcon size="game-icon-small" percent={percent} percentColour={colour}/>);
+        game_icons.push(<GameIcon key={i} size="game-icon-small" percent={percent} percentColour={colour}/>);
     }
 
     return (
