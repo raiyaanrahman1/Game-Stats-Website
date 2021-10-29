@@ -8,7 +8,7 @@ const Chart = (props) => {
     function getStats() {
         // get the chart's info from database - hardcoded here
         for(let i = 0; i < props.numBars; i++){
-            bars.push(<li><span className ="info-text"><GameIconChart height={props.heights[i]} title={props.titles[i]}/></span></li>);
+            bars.push(<li key={i}><span className ="info-text"><GameIconChart height={props.heights[i]} title={props.titles[i]}/></span></li>);
         }
     }
 
