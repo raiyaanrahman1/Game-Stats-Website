@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Login() {
+function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -16,8 +16,12 @@ function Login() {
         setPassword(password);
     
         if (username === "user" && password === "user") {
+            props.setLoggedIn(true);
+            props.setPage("home");
             //login to user view
         } else if (username === "admin" && password === "admin") {
+            props.setLoggedIn(true);
+            props.setPage("home");
             //login to admin view
         } else {
             alert("Incorrect username or password.");
