@@ -9,7 +9,7 @@ const GameIconChart = (props) => {
                 <div className="sample-image-chart"> Sample Image </div>
                 <div className="info-chart">
                     <div className="title-publisher-chart">
-                        <h4> {props.title} </h4>
+                        <h2> {props.title} </h2>
                     </div>
                 </div>
             </div>

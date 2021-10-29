@@ -103,6 +103,10 @@ body {
   margin: 20px;
 }
 
+.hidden {
+  display: none;
+}
+
 /* ##################################################   Charts   ################################################## */
 .chart-back {
   position: absolute;
@@ -136,7 +140,7 @@ body {
   /* margin: 5px; */
   margin-bottom: 90px;
   width: 50px;
-  max-height: 250px;
+  max-height: 325px;
   /*height: 250px;*/
   padding: 5px;
   border-style: outset;
@@ -189,8 +193,9 @@ display: block;
 font-size: 50%;
 }
 
-.hidden {
-  display: none;
+.chart-title {
+  text-align: center;
+  margin: 10px;
 }
 
 /* ##################################################   Login   ################################################## */
