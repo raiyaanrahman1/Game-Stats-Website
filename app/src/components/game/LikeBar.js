@@ -2,31 +2,23 @@ import React from 'react';
 
 
 class LikeBar extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            numLikes: this.props.numLikes,
-            numDislikes: this.props.numDislikes,
-            numVotes: this.props.numVotes
-        }
+    
+    voteMessages = (userVoted) => {
+        if (userVoted === 0) { return " "}
+        else if (userVoted === 1) { return "Liked"}
+        else if (userVoted === -1) { return "Disliked"}
     }
+
     render() {
-        // let percentage = 0;
-        // if(this.state.numVotes > 0){
-        //     percentage = this.state.numLikes / this.state.numVotes;
-        // }
+        let percentage = 0;
+        if(this.props.numVotes > 0){
+            percentage = Math.round(this.props.numLikes / this.props.numVotes * 100);
+        }
         return(<div className="game-likebar">
-            <button onClick={()=>{
-                this.props.setGameState({...this.props.gameState, gameData: {...this.props.gameState.gameData, numVotes: this.state.numVotes+1,numLikes: this.state.numLikes+1}});
-                this.setState({...this.state, numVotes: this.state.numVotes+1, numLikes: this.state.numLikes+1});
-                console.log(`likes: ${this.state.numLikes}, votes:${this.state.numVotes}`);
-            }}>👍</button>
-            <h3 className="game-rate"> {`${this.state.numLikes}-${this.state.numDislikes}`} </h3>
-            <button onClick={()=>{
-                this.props.setGameState({...this.props.gameState, gameData: {...this.props.gameState.gameData, numVotes: this.state.numVotes+1,numLikes: this.state.numDislikes+1}});
-                this.setState({...this.state, numVotes: this.state.numVotes+1, numDislikes: this.state.numDislikes+1});
-                console.log(`likes: ${this.state.numLikes}, votes:${this.state.numVotes}`);
-            }}>👎</button>
+            <button onClick={this.props.like}>👍</button>
+            <h3 className="game-rate"> {percentage}% </h3>
+            <button onClick={this.props.dislike}>👎</button>
+            <p className="game-voteMessages">{this.voteMessages(this.props.userVoted)}</p>
         </div>
             
         )

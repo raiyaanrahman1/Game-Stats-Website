@@ -8,42 +8,58 @@ class Games extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            gameData: {
+            //gameData: {
                 gameID: 0,
                 title: 'Title',
                 publisher: 'publisher',
                 genres: ['Genre 1', 'Genre 2', 'Genre 3'],
                 description: 'description description description description description description description description description description description description description description description description description description description description',
                 coverArt: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg',
-                numVotes: 0,
+                numVotes: 0,    // we dont need numDislikes because it can be calculated
                 numLikes: 0,
-                numDislikes: 0,
                 numReviews: 1,
                 reviews: [0],   // review ids
-            }
+            //},
+            userVoted: 0, // 0: not yet voted, 1: like, -1: dislike
         }
         this.setState = this.setState.bind(this);
     }
     
+    onClickLike = () => {
+        console.log('like')
+        if (this.state.userVoted ===0) {
+            this.setState({numVotes: this.state.numVotes+1, numLikes: this.state.numLikes+1, userVoted: 1});
+
+        } else if (this.state.userVoted === -1) {
+            this.setState({ numLikes: this.state.numLikes+1, userVoted: 1});
+        }
+    }
+    
+    onClickDislike = () => {
+        console.log('dislike')
+        if (this.state.userVoted ===0) {
+            this.setState({numVotes: this.state.numVotes+1, userVoted: -1});
+        } else if (this.state.userVoted === 1) {
+            this.setState({ numLikes: this.state.numLikes-1, userVoted: -1});
+        }
+
+    }
     
     render() {
-        let genres = "";
-        for(let i = 0; i < this.state.gameData.genres.length; i++){
-            genres += this.state.gameData.genres[i];
-            if(i < this.state.gameData.genres.length-1){
-                genres += ", "
-            }
-        }
         return (
             <div className="game-main">
-                <img src={this.state.gameData.coverArt} alt="Cover" className = "game-cover"/>
-                <LikeBar numLikes={this.state.gameData.numLikes} numDislikes={this.state.gameData.numDislikes} numVotes={this.state.gameData.numVotes} setGameState={this.setState} gameState={this.state}/>
+                <img src={this.state.coverArt} alt="Cover" className = "game-cover"/>
+                <LikeBar    numLikes={this.state.numLikes} 
+                            numVotes={this.state.numVotes}
+                            userVoted={this.state.userVoted} 
+                            like={this.onClickLike} 
+                            dislike={this.onClickDislike} />
                 <div className="game-info">
-                    <h2 className = "game-title">{this.state.gameData.title}</h2>
-                    <h3 className = "game-publisher">{this.state.gameData.publisher}</h3>
-                    <div className = "game-genre">{genres}</div>
+                    <h2 className = "game-title">{this.state.title}</h2>
+                    <h3 className = "game-publisher">{this.state.publisher}</h3>
+                    <div className = "game-genre">{this.state.genres.map((genres) => (<span>{genres}, </span>) )} </div>
                     <hr></hr>
-                    <p className = "game-description">{this.state.gameData.description}</p>
+                    <p className = "game-description">{this.state.description}</p>
                 
                     
                 </div>
