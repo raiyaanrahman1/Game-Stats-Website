@@ -1,5 +1,5 @@
 import React from 'react';
-import GameIconChart from './GameIconChart';
+import GameIconChart from './GameIconChart.js';
 
 const Charts = (props) => {
     
