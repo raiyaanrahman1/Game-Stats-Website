@@ -57,7 +57,7 @@ class Games extends React.Component {
                 <div className="game-info">
                     <h2 className = "game-title">{this.state.title}</h2>
                     <h3 className = "game-publisher">{this.state.publisher}</h3>
-                    <div className = "game-genre">{this.state.genres.map((genres) => (<span>{genres}, </span>) )} </div>
+                    <div className = "game-genre">{this.state.genres.map((genres, i) => (<span key={i}>{genres}, </span>) )} </div>
                     <hr></hr>
                     <p className = "game-description">{this.state.description}</p>
                 
