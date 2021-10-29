@@ -152,12 +152,12 @@ body {
   margin-bottom:5px;
 }
 
-.info {
+.info-chart {
   display: flex;
   justify-content: space-around;
 }
 
-.title-publisher {
+.title-publisher-chart {
   display: inline-block;
 }
 
