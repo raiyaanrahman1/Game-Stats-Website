@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const GameIcon = (props) => {
     
     return (
+        <Link to={'/game?ID='+ Math.round(props.percent * 100)} > 
         <div className={props.size}>
             <div className="sample-image"> Sample Image </div>
             <div className="info">
@@ -15,6 +17,7 @@ const GameIcon = (props) => {
                 </div>
             </div>
         </div>
+        </Link>
     );
 };
 

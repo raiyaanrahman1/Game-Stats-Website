@@ -18,12 +18,12 @@ function Login(props) {
         setPassword(password);
     
         if (username === "user" && password === "user") {
-            props.setLoggedIn(true);
+            props.setLoggedIn(1);
             //props.setPage("home");
             history.push("/");
             //login to user view
         } else if (username === "admin" && password === "admin") {
-            props.setLoggedIn(true);
+            props.setLoggedIn(2);
             //props.setPage("home");
             history.push("/");
             //login to admin view

@@ -7,10 +7,15 @@ class Game extends React.Component {
 
     constructor(props) {
         super(props);
+        
+        const query = new URLSearchParams(this.props.location.search);
+        const gameID = query.get('ID')
+        //console.log(gameID)  
+
         this.state = {
             //gameData: {
-                gameID: 0,
-                title: 'Title',
+                gameID: gameID,
+                title: 'The game with ID ' + gameID ,
                 publisher: 'publisher',
                 genres: ['Genre 1', 'Genre 2', 'Genre 3'],
                 description: 'description description description description description description description description description description description description description description description description description description description description',
@@ -27,7 +32,7 @@ class Game extends React.Component {
     
     onClickLike = () => {
         console.log('like')
-        if (this.state.userVoted ===0) {
+        if (this.state.userVoted === 0) {
             this.setState({numVotes: this.state.numVotes+1, numLikes: this.state.numLikes+1, userVoted: 1});
 
         } else if (this.state.userVoted === -1) {
