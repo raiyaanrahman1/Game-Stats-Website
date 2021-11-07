@@ -8,7 +8,7 @@ body {
   background-color: #282c34;
   color: white;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-  "Lucida Sans", Arial, sans-serif; 
+    "Lucida Sans", Arial, sans-serif;
 }
 
 .navBar {
@@ -69,7 +69,7 @@ body {
   justify-content: center;
   background-color: rgb(154, 226, 255);
   height: 100px;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
 .info {
@@ -82,11 +82,11 @@ body {
 }
 
 .publisher {
-  color:grey;
+  color: grey;
 }
 
 .green-percent {
-  color:rgb(69, 255, 62);
+  color: rgb(69, 255, 62);
 }
 
 .red-percent {
@@ -119,8 +119,8 @@ a {
   width: 650px;
   height: 550px;
   color: black;
-  background-color: white; 
-  border-style: outset; 
+  background-color: white;
+  border-style: outset;
 }
 
 .game-on-chart {
@@ -134,7 +134,6 @@ a {
   padding: 0px;
   align-items: center;
 }
-
 
 .chart-bar {
   position: absolute;
@@ -173,7 +172,7 @@ a {
   background-color: rgb(154, 226, 255);
   height: 70px;
   /*width: 25px;*/
-  margin-bottom:5px;
+  margin-bottom: 5px;
 }
 
 .info-chart {
@@ -186,17 +185,17 @@ a {
 }
 
 .chart-back ul li {
-margin: 25px;
-font-weight: bold;
-list-style: none; /* Gets rid of list bullet points */
-text-align: center;
+  margin: 25px;
+  font-weight: bold;
+  list-style: none; /* Gets rid of list bullet points */
+  text-align: center;
 
-display: inline-block;	
+  display: inline-block;
 }
 
 .info-text {
-display: block;
-font-size: 50%;
+  display: block;
+  font-size: 50%;
 }
 
 .chart-title {
@@ -216,8 +215,7 @@ font-size: 50%;
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
-  
-}  
+}
 
 .loginBtn {
   background-color: darkorchid;
@@ -286,22 +284,24 @@ font-size: 50%;
   background-color: seagreen;
   height: 200px;
   width: 200px;
-  margin-bottom:20px;
+  margin-bottom: 20px;
   border-radius: 50%;
 }
 
 .profile-name-desc {
-  display: inline;
-  float: left;
+  display: inline-block;
+  justify-content: space-around;
 }
 
 .profile-name-desc h4 {
   color: darkblue;
   font-size: larger;
+  justify-content: space-around;
 }
 
 .profile-name-desc h5 {
   color: darkgray;
+  justify-content: space-around;
 }
 
 .profile-btn {
@@ -321,7 +321,188 @@ font-size: 50%;
   background-color: purple;
 }
 
-.profile-hardware{
+.profile-hardware {
   margin-top: 15px;
 }
 
+/* ##################################################   Admin Dashboard   ################################################## */
+
+.admin-dashboard {
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-options {
+  list-style-type: none;
+  margin: 0;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding: 0;
+  width: 80px;
+  border: solid black;
+  border-top: none;
+  background-color: rgb(129, 20, 184);
+}
+
+.admin-options li {
+  display: block;
+  border-top: solid black;
+  padding: 8px 16px;
+}
+
+.admin-options li:hover {
+  background-color: purple;
+  cursor: pointer;
+}
+
+.admin-games-settings {
+  margin-right: auto;
+
+  height: 350px;
+  width: 450px;
+  background-color: slategrey;
+}
+
+.admin-add-game-button {
+  display: inline-block;
+  margin: 3px;
+  margin-right: 15px;
+  margin-left: 6px;
+  padding: 8px 16px;
+  height: 45px;
+  width: 70px;
+  background-color: darkorchid;
+  border: none;
+  color: white;
+}
+
+.admin-add-game-button:hover {
+  background-color: purple;
+  cursor: pointer;
+}
+
+.admin-games-search {
+  display: inline-block;
+}
+
+.admin-games-search input {
+  box-sizing: border-box;
+  width: 255px;
+  padding: 8px 16px;
+  margin-top: 8px;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+}
+
+.admin-game-search label {
+  margin-left: 10px;
+}
+
+.admin-cur-game-display h4 {
+  margin-left: 4px;
+  color: black;
+}
+
+.admin-add-game-display input[type="text"] {
+  width: 85%;
+  padding: 6px 14px;
+  margin: 8px auto;
+  margin-left: 15px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.admin-add-game-display label {
+  margin-left: 15px;
+}
+
+.admin-submit-game {
+  display: block;
+  width: 18%;
+  justify-self: center;
+  background: darkgreen;
+  color: #fff;
+  border: none;
+  border-radius: 7%;
+  padding: 2% 3%;
+  margin: auto;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: smaller;
+  font-family: inherit;
+}
+
+.admin-users-search {
+  display: inline-block;
+}
+
+.admin-users-search input {
+  box-sizing: border-box;
+  width: 255px;
+  padding: 8px 16px;
+  margin-top: 8px;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+}
+
+.admin-users-search label {
+  margin-left: 10px;
+}
+
+.admin-cur-user-display {
+  display: flex;
+  height: 285px;
+  width: 420px;
+  padding: 5px;
+  margin: auto;
+  margin-top: 10px;
+  background-color: lightgray;
+}
+
+.admin-profile-display-left {
+  color: black;
+  background-color: slategrey;
+  box-sizing: content-box;
+  margin: 3px;
+  width: 30%;
+  height: 92%;
+  padding: 3px;
+  border: solid;
+  border-width: 3px;
+  border-color: slategrey;
+  border-radius: 2%;
+}
+
+.admin-user-display-profile-image {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: seagreen;
+  height: 33%;
+  width: 66%;
+  border-radius: 50%;
+}
+
+.admin-ban-user-button {
+  flex: 2;
+  box-sizing: content-box;
+  width: 90%;
+  justify-self: center;
+  background: black;
+  color: #fff;
+  border: none;
+  padding: 3% 4%;
+  margin: 1.5% 2%;
+  text-decoration: none;
+  font-size: smaller;
+  font-family: inherit;
+}
+
+.admin-ban-user-button:hover {
+  cursor: pointer;
+  background-color: darkslategray;
+}
