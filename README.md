@@ -10,7 +10,7 @@
 3. execute: "npm install" to install all dependencies
 4. execute: "npm start" to start the local development server
 
-## USING THE APP 
+## Using the App
 
 ### Homepage:
 
@@ -28,11 +28,11 @@ Clicking on the Charts button at the top of the website will bring up the charts
 
 Clicking the login button at the top of the website brings up the login page. 
 
--Regular User Login: 
+#### Regular User Login: 
 
 Logging in in with username: user and password: user will add a new button options on the top of the website. The MyProfile button will bring up an example user profile page displaying the user's information such as profile pic, username, their top games, and their top reviews. Currently, most features are non-functional due to requiring a server to get or store data. Clicking the logout button on the top will return to the regular view from before logging in.
 
--Admin Login: 
+#### Admin Login: 
 
 Logging in with username: admin and password: admin is similiar to the regular user login except that it also creates an Admin button at the top that would open up the admin dashboard. Admins would be able to use the dashboard to: add or remove games, reviews, and users, and they would be able to modify the charts page. 
 
