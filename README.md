@@ -30,11 +30,11 @@ Clicking the login button at the top of the website brings up the login page.
 
 -Regular User Login: 
 
-Loginning in with username: user and password: user will add a new button options on the top of the website. The MyProfile button will bring up an example user profile page displaying the user's information such as profile pic, username, their top games, and their top reviews. Currently, most features are non-functional due to requiring a server to get or store data. Clicking the logout button on the top will return to the regular view from before logging in.
+Logging in in with username: user and password: user will add a new button options on the top of the website. The MyProfile button will bring up an example user profile page displaying the user's information such as profile pic, username, their top games, and their top reviews. Currently, most features are non-functional due to requiring a server to get or store data. Clicking the logout button on the top will return to the regular view from before logging in.
 
 -Admin Login: 
 
-Loginning in with username: admin and password: admin is similiar to the regular user login except that it also creates an Admin button at the top that would open up the admin dashboard. 
+Logging in with username: admin and password: admin is similiar to the regular user login except that it also creates an Admin button at the top that would open up the admin dashboard. 
 
 
 
