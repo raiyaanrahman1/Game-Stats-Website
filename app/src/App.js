@@ -5,7 +5,7 @@ import Game from './components/game/Game';
 import Charts from './components/Charts.js';
 import Login from './components/Login.js';
 import Profile from './components/profile/Profile.js';
-import Admin from './components/Admin.js';
+import Admin from './components/admin_dashboard/Admin.js';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 function App() {
