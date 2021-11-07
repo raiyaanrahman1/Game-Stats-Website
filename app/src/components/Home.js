@@ -23,7 +23,7 @@ const Home = (props) => {
     }
     
     return (
-        <div>
+        <div className="page-content">
             <div>This is the homepage</div>
             {game_icons}
         </div>

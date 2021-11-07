@@ -34,13 +34,16 @@ function Login(props) {
       };
 
     return (
-        <form className="loginForm"onSubmit={onLogin}>
-            <input className="loginInput" type="text" name="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
-            <p></p> 
-            <input className="loginInput" type="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-            <p>Don't have an account? Sign Up</p> {/*This is is just temporary until we do CSS*/}
-            <input className="loginBtn" type="submit" value="Login"/>
-        </form>
+        <div className="page-content">
+            <form className="loginForm" onSubmit={onLogin}>
+                <input className="loginInput" type="text" name="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
+                <p></p> 
+                <input className="loginInput" type="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+                <p>Don't have an account? Sign Up</p> {/*This is is just temporary until we do CSS*/}
+                <input className="loginBtn" type="submit" value="Login"/>
+            </form>
+        </div>
+        
     )
 }
 
