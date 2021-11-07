@@ -18,8 +18,11 @@ The homepage lists the games in the system, displaying their cover art, title, p
 
 ### Games page:
 
-Clicking on a game in the homepage brings up a page providing more detail about the game such as genres, description, and a list of user reviews. Currently, there is only one example game page for clicking on any of the games on the homepage, but each game would get it's own page once the server and database are connected. You can click on the thumbs up and thumbs down button to like or dislike the game and the percentage will change accordingly. The test hardware and add to favourites buttons are currently unused due to requiring data from the server. Normally test hardware would get the user's hardware data from their profile and compare it to the hardware of the users who rated the game to determine if the user is likely to be able to run the game well. Pressing write a review will bring up a textbox where users can type out a review, but submitting currently does not work again due to not having anywhere to store the review and will be implemented once the server is setup. 
-
+Clicking on a game on the homepage brings up a page providing more detail about the game such as genres, description, and a list of user reviews. Currently, all game pages are using the same hard-coded example information, but they will use actual information once the server and database are connected. You can click on the thumbs up and thumbs down buttons to like or dislike the game and the percentage will change accordingly.   
+Between the game description and the reviews, there are 3 buttons, of which "add to favourites" buttons are currently unused due to requiring data from the server, other two will bring up a window to show what users can expect to see. 
+The test hardware will bring up a window for users to select and check whatever the hardware provided is capable of running the current game. Currently, the result is hardcoded, but once connected to the server, it will get the user's hardware data from their profile and compare it to the hardware of the users who rated the game to determine if the user is likely to be able to run the game well.
+Pressing write a review will bring up a textbox where users can type out a review, but submitting currently does not work again due to not having anywhere to store the review and will be implemented once the server is set up. 
+   
 ### Charts Page:
 
 Clicking on the Charts button at the top of the website will bring up the charts page. Currently, there are a few example charts, but normally we would get data from the server to calculate the data for the graphs. The example charts are just there to show that we can have any number of charts with any number of games in them. 
