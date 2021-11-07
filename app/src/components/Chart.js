@@ -19,17 +19,19 @@ const Chart = (props) => {
                 <h2 className="chart-title">{props.title}</h2>
 
                 <table className="y-axis">
-                    <tr><th>100</th></tr>
-                    <tr><th>90</th></tr>
-                    <tr><th>80</th></tr>
-                    <tr><th>70</th></tr>
-                    <tr><th>60</th></tr>
-                    <tr><th>50</th></tr>
-                    <tr><th>40</th></tr>
-                    <tr><th>30</th></tr>
-                    <tr><th>20</th></tr>
-                    <tr><th>10</th></tr>
-                    <tr><th>0</th></tr>
+                    <tbody>
+                        <tr><th>100</th></tr>
+                        <tr><th>90</th></tr>
+                        <tr><th>80</th></tr>
+                        <tr><th>70</th></tr>
+                        <tr><th>60</th></tr>
+                        <tr><th>50</th></tr>
+                        <tr><th>40</th></tr>
+                        <tr><th>30</th></tr>
+                        <tr><th>20</th></tr>
+                        <tr><th>10</th></tr>
+                        <tr><th>0</th></tr>
+                    </tbody>
                 </table>
 
                 {/* Placeholders, would normally actually determine top 5 games using data from the database */}
