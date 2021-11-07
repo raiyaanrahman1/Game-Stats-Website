@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const GameIcon = (props) => {
     
     return (
-        <Link to={'/game?ID='+ props.gameID + "&name=" + props.gameName} > 
+        <Link to={'/game?ID='+ Math.round( props.percent  * 100)} > {/* we dont need game name, and use percent as example of game id */} 
         <div className={props.size}>
             <div className="sample-image"> Sample Image </div>
             <div className="info">
