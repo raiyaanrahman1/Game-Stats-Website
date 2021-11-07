@@ -2,6 +2,7 @@ import React from 'react';
 import './game.css';
 import LikeBar from './LikeBar.js';
 import Reviews from './Reviews.js';
+import AddReview from './AddReview.js';
 
 class Game extends React.Component {
 
@@ -20,12 +21,13 @@ class Game extends React.Component {
                 genres: ['Genre 1', 'Genre 2', 'Genre 3'],
                 description: 'description description description description description description description description description description description description description description description description description description description description',
                 coverArt: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg',
-                numVotes: 0,    // we dont need numDislikes because it can be calculated
-                numLikes: 0,
+                numVotes: 5,    // we dont need numDislikes because it can be calculated
+                numLikes: 3,
                 numReviews: 1,
                 reviews: [0],   // review ids
             //},
             userVoted: 0, // 0: not yet voted, 1: like, -1: dislike
+            showReview: 0,
         }
         this.setState = this.setState.bind(this);
     }
@@ -49,6 +51,15 @@ class Game extends React.Component {
         }
 
     }
+
+    ShowReviewToggle = () => {this.setState({showReview: 1 - this.state.showReview}) }
+
+    ReviewSubmit = (e) => {
+        e.preventDefault();
+        this.setState({showReview: 0})
+        // pass to server TODO
+    }
+
     
     render() {
         return (
@@ -68,11 +79,17 @@ class Game extends React.Component {
                 
                     
                 </div>
-                <div className = "game-buttoms">
-
+                <div className = "game-buttons">    {/* TODO: only shown if user is logged in */}
+                    <button className = "game-button" onClick={this.ShowReviewToggle}> Write a Review</button>
+                    <button className = "game-button" onClick={()=>{console.log("Not implemented")}}>Test My Hardware</button>
+                    <button className = "game-button"onClick={()=>{console.log("Not implemented")}}>Add tto Favorite</button>
                 </div>
                 
-                <Reviews />
+                <Reviews reviewIDs={this.state.reviews}/>
+
+
+                <AddReview showReview={this.state.showReview} ReviewSubmit={this.ReviewSubmit} close={this.ShowReviewToggle}/>
+
             </div>
             
         )
