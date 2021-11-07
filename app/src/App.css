@@ -35,7 +35,7 @@ body {
   z-index: 90;
 }
 
-.navBar li {
+.navRegEl {
   display: inline-flex;
   height: 100%;
   align-items: center;
