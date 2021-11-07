@@ -7,7 +7,7 @@ const searchUsers = (e) => {
 
 function AdminUsers() {
   return (
-    <div className="admin-games-settings">
+    <div className="admin-settings">
       <form className="admin-users-search" onSubmit={searchUsers}>
         <label> Search Users: {/*We'd get the id here*/} </label>
         <input placeholder="Please Enter a Username" />

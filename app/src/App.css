@@ -384,7 +384,7 @@ font-size: 50%;
   cursor: pointer;
 }
 
-.admin-games-settings {
+.admin-settings {
   margin-right: auto;
 
   height: 350px;
@@ -534,4 +534,12 @@ font-size: 50%;
 .admin-ban-user-button:hover {
   cursor: pointer;
   background-color: darkslategray;
+}
+
+.admin-stats {
+  padding: 10px;
+}
+
+.admin-stats p {
+  margin: 10px;
 }

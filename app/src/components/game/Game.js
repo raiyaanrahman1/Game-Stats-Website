@@ -3,6 +3,7 @@ import './game.css';
 import LikeBar from './LikeBar.js';
 import Reviews from './Reviews.js';
 import AddReview from './AddReview.js';
+import TestHardware from './TestHardware.js';
 
 class Game extends React.Component {
 
@@ -14,6 +15,7 @@ class Game extends React.Component {
         //console.log(gameID)  
 
         this.state = {
+            userID: -1,
             //gameData: {
                 gameID: gameID,
                 title: 'The game with ID ' + gameID ,
@@ -28,6 +30,7 @@ class Game extends React.Component {
             //},
             userVoted: 0, // 0: not yet voted, 1: like, -1: dislike
             showReview: 0,
+            showTHW: 0,
         }
         this.setState = this.setState.bind(this);
     }
@@ -53,6 +56,7 @@ class Game extends React.Component {
     }
 
     ShowReviewToggle = () => {this.setState({showReview: 1 - this.state.showReview}) }
+    showTHWToggle = () => {this.setState({showTHW: 1 - this.state.showTHW}) }
 
     ReviewSubmit = (e) => {
         e.preventDefault();
@@ -81,7 +85,7 @@ class Game extends React.Component {
                 </div>
                 <div className = "game-buttons">    {/* TODO: only shown if user is logged in */}
                     <button className = "game-button" onClick={this.ShowReviewToggle}> Write a Review</button>
-                    <button className = "game-button" onClick={()=>{console.log("Not implemented")}}>Test My Hardware</button>
+                    <button className = "game-button" onClick={this.showTHWToggle}>Test My Hardware</button>
                     <button className = "game-button"onClick={()=>{console.log("Not implemented")}}>Add tto Favorite</button>
                 </div>
                 
@@ -89,6 +93,8 @@ class Game extends React.Component {
 
 
                 <AddReview showReview={this.state.showReview} ReviewSubmit={this.ReviewSubmit} close={this.ShowReviewToggle}/>
+
+                <TestHardware showTHW={this.state.showTHW} userID={this.state.userID} close={this.showTHWToggle}/>
 
             </div>
             

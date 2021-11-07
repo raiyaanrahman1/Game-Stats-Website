@@ -70,28 +70,27 @@
     font-size: 30px;
     padding: 20px;
     border-radius: 50%;
-    color: transparent;  
+    /* color: transparent;   */
     
 }
 
 .game-review-rate.like {
-    text-shadow: 0 0 0 green;
+    text-shadow: 0 0 8px green;
 }
 
 .game-review-rate.dislike {
-    text-shadow: 0 0 0 red;
+    text-shadow: 0 0 8px red;
 }
 
 .game-addReview {
-    position: fixed; /* Sit on top of the page content */
-    /*display: none;  Hidden by default */
+    position: fixed; 
     top: 40%;
     left: 35%;
     width: 40%;
     padding: 50px ;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
+    background-color: rgba(0,0,0,0.9); 
+    z-index: 2; 
+    cursor: pointer; 
 }
 
 .game-addReview-input {
@@ -101,6 +100,16 @@
     box-sizing: border-box;
     text-align: start;
   }
+
+.game-THW {
+    position: fixed;
+    top: 35%;
+    left: 30%;
+    width: 40%;
+    padding: 50px ;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.9); 
+}
 
 .hidden {
     display: none;

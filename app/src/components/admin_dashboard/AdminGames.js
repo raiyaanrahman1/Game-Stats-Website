@@ -15,7 +15,7 @@ function AdminGames() {
   const text1 = "Add a Game";
   const text2 = "Edit a Game";
   return (
-    <div className="admin-games-settings">
+    <div className="admin-settings">
       <button
         className="admin-add-game-button"
         onClick={() => setShowForm(!showForm)}
@@ -45,7 +45,7 @@ function AdminGames() {
       )}
       {showForm && (
         <form className="admin-add-game-display" onSubmit={onSubmit}>
-          <label>ID: </label>
+          {/* <label>ID: </label> */}
           <label>Title: </label> <input type="text" />
           <label>Publisher: </label> <input type="text" />
           <label>Genres: </label> <input type="text" />
