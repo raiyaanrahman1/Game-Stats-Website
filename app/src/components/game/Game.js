@@ -14,6 +14,9 @@ class Game extends React.Component {
         const gameID = query.get('ID');
         //console.log(gameID)  
 
+        // Get game info based on gameID from server
+        // Check userVoted
+
         this.state = {
             userID: -1,
             //gameData: {
@@ -22,7 +25,7 @@ class Game extends React.Component {
                 publisher: 'publisher',
                 genres: ['Genre 1', 'Genre 2', 'Genre 3'],
                 description: 'description description description description description description description description description description description description description description description description description description description description',
-                coverArt: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg',
+                coverArt: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg', // sample image
                 numVotes: 5,    // we dont need numDislikes because it can be calculated
                 numLikes: 3,
                 numReviews: 1,

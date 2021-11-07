@@ -2,7 +2,7 @@ import React from 'react';
 
 
 class LikeBar extends React.Component {
-    
+    // No server connection required 
     voteMessages = (userVoted) => {
         if (userVoted === 0) { return " "}
         else if (userVoted === 1) { return "Liked"}

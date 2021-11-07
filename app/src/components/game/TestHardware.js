@@ -2,13 +2,17 @@ import React from 'react';
 
 const TestHardware = (props) => {
     
+    // get user's hardware information from server
     const userHW = {CPU: 'userCPU', GPU: 'userGPU', Ram: 8, storage: 256};
 
+    const handleFormChange = (e) => {
+        // ask server whether the game is playable 
+    }
 
     return(<div className={props.showTHW ? "game-THW" : "game-THW hidden"}>
 
         <h3>Your Hardware:&nbsp;</h3>
-        <from>
+        <form onChange={handleFormChange}>
             <label for="THW-CPU">CPU:&nbsp;</label>
             <select id="THW-CPU" name="cpu">
                 <option value="" selected>{userHW.CPU}</option>
@@ -33,7 +37,7 @@ const TestHardware = (props) => {
                 <option value="16"> 16 GB</option>
             </select>
 
-        </from>
+        </form>
 
         <h3>Your Computer can Run this game!</h3>
 

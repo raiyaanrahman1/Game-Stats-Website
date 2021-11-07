@@ -1,6 +1,7 @@
 import React from 'react';
 
 class Reviews extends React.Component {
+    // Get reviews content based on list of review ids in props from server
     constructor(props) {
         super(props);
 
