@@ -11,14 +11,15 @@ class Game extends React.Component {
         super(props);
         
         const query = new URLSearchParams(this.props.location.search);
-        const gameID = query.get('ID')
+        const gameID = query.get('ID');
+        const name = query.get('name');
         //console.log(gameID)  
 
         this.state = {
             userID: -1,
             //gameData: {
                 gameID: gameID,
-                title: 'The game with ID ' + gameID ,
+                title: name,
                 publisher: 'publisher',
                 genres: ['Genre 1', 'Genre 2', 'Genre 3'],
                 description: 'description description description description description description description description description description description description description description description description description description description description',
