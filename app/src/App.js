@@ -7,6 +7,7 @@ import Login from './components/Login.js';
 import Profile from './components/profile/Profile.js';
 import Admin from './components/admin_dashboard/Admin.js';
 import NavBar from './components/NavBar';
+import SearchResults from './components/searchResults';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 let gamesSet = false;
 let gameList = [];
@@ -15,6 +16,7 @@ function App() {
 	let [loggedIn, setLoggedIn] = useState(0);	// 0 = not loggedIn, 1 = user, 2 = admin
   let [gameNames, setGameNames] = useState([]);
   let [games, setGames] = useState([]);
+  let [matchedTerms, setMatchedTerms] = useState([]);
   
 // 	let mainComponent;
 //   switch(page){
@@ -57,7 +59,7 @@ function App() {
 	return (
 		<main className="App" >
 			<BrowserRouter>
-				<NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameNames={gameNames} games={gameList}/>
+				<NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameNames={gameNames} games={gameList} setMatchedTerms={setMatchedTerms}/>
 			
 				<Switch>
 					<Route path="/game" component={Game} />	
@@ -68,7 +70,8 @@ function App() {
 					<Route path="/profile"> <Profile />	</Route>
 					<Route path="/admin"> 	<Admin loggedIn={loggedIn}/>	</Route>
 					<Route path="/">		<Home gameNames={gameNames} setGameNames={setGameNames} games={gameList} setGames={setGames}/>	</Route>
-				</Switch>
+          <Route path="/searchresults"> <SearchResults matchedTerms={matchedTerms}/> </Route>
+        </Switch>
 			</BrowserRouter>
 		{/* previous implementation
 		<ul className="navBar">
