@@ -7,12 +7,11 @@ let game_icons = [];
 const Home = (props) => {
     
     // We would get this list from the backend
-    const NUM_GAME_ICONS = 20;
     
-    let games = [];
-
+    
+        //console.log(props.games);
     if(!gamesSet){
-        for(let i = 0; i < NUM_GAME_ICONS; i++){
+        for(let i = 0; i < props.games.length; i++){
             let percent = (Math.random()*100).toFixed(2);
             let colour;
             if(percent < 50){
@@ -24,13 +23,13 @@ const Home = (props) => {
             else {
                 colour = "green-percent";
             }
-            let gameID = (Math.random()*10000).toFixed(0);
-            game_icons.push(<GameIcon gameID={gameID} gameName={"Game " + (i+1)} size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
-            games.push({gameName:"Game " + (i+1), gameID:gameID});
+            
+            game_icons.push(<GameIcon gameID={props.games[i].id} size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
+            
         }
-        props.setGames(games);
         gamesSet = true;
-    }
+    }  
+    
 
     return (
         <div className="page-content">

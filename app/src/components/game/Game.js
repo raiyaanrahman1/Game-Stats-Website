@@ -21,7 +21,7 @@ class Game extends React.Component {
             userID: -1,
             //gameData: {
                 gameID: gameID,
-                title: "the game with ID " + gameID,
+                title: "Game " + gameID,
                 publisher: 'publisher',
                 genres: ['Genre 1', 'Genre 2', 'Genre 3'],
                 description: 'description description description description description description description description description description description description description description description description description description description description',
@@ -89,7 +89,7 @@ class Game extends React.Component {
                 <div className = "game-buttons">    {/* TODO: only shown if user is logged in */}
                     <button className = "game-button" onClick={this.ShowReviewToggle}> Write a Review</button>
                     <button className = "game-button" onClick={this.showTHWToggle}>Test My Hardware</button>
-                    <button className = "game-button"onClick={()=>{console.log("Not implemented")}}>Add tto Favorite</button>
+                    <button className = "game-button"onClick={()=>{console.log("Not implemented")}}>Add to Favorite</button>
                 </div>
                 
                 <Reviews reviewIDs={this.state.reviews}/>

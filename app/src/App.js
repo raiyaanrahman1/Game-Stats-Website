@@ -8,11 +8,14 @@ import Profile from './components/profile/Profile.js';
 import Admin from './components/admin_dashboard/Admin.js';
 import NavBar from './components/NavBar';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
+let gamesSet = false;
+let gameList = [];
 function App() {
 	//let [page, setPage] = useState("home");
 	let [loggedIn, setLoggedIn] = useState(0);	// 0 = not loggedIn, 1 = user, 2 = admin
+  let [gameNames, setGameNames] = useState([]);
   let [games, setGames] = useState([]);
+  
 // 	let mainComponent;
 //   switch(page){
 //     case "home":
@@ -34,10 +37,27 @@ function App() {
 //       mainComponent = <Home />;
 //   }
 
+  const NUM_GAME_ICONS = 20;
+      
+  let names = [];
+  
+  //console.log(gamesSet);
+  if(!gamesSet){
+    for(let i = 0; i < NUM_GAME_ICONS; i++){
+      let gameID = (Math.random()*10000).toFixed(0);
+      //game_icons.push(<GameIcon gameID={gameID} size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
+      names.push("Game " + gameID);
+      gameList.push({name: "Game " + gameID, id: gameID});
+    }
+    setGameNames(names);
+    setGames(gameList);
+    gamesSet = true;
+  }
+
 	return (
 		<main className="App" >
 			<BrowserRouter>
-				<NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} games={games}/>
+				<NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameNames={gameNames} games={gameList}/>
 			
 				<Switch>
 					<Route path="/game" component={Game} />	
@@ -47,7 +67,7 @@ function App() {
 					</Route>
 					<Route path="/profile"> <Profile />	</Route>
 					<Route path="/admin"> 	<Admin loggedIn={loggedIn}/>	</Route>
-					<Route path="/">		<Home games={games} setGames={setGames}/>	</Route>
+					<Route path="/">		<Home gameNames={gameNames} setGameNames={setGameNames} games={gameList} setGames={setGames}/>	</Route>
 				</Switch>
 			</BrowserRouter>
 		{/* previous implementation

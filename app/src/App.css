@@ -568,8 +568,18 @@ font-size: 50%;
 .game-search-bar {
   margin-right: 30px;
   width: 280px;
-  height: 40px;
+  height: 30px;
   padding-left: 10px;
   border-radius: 5px;
   border: none;
+  
+}
+.search-area {
+  display:flex;
+  font-size: smaller;
+}
+.dialogue-text {
+  margin-right: 10px;
+  display:flex;
+  align-items: center;
 }
