@@ -22,6 +22,8 @@ Clicking on a game on the homepage brings up a page providing more detail about 
 Between the game description and the reviews, there are 3 buttons, of which "add to favourites" buttons are currently unused due to requiring data from the server, other two will bring up a window to show what users can expect to see. 
 The test hardware will bring up a window for users to select and check whatever the hardware provided is capable of running the current game. Currently, the result is hardcoded, but once connected to the server, it will get the user's hardware data from their profile and compare it to the hardware of the users who rated the game to determine if the user is likely to be able to run the game well.
 Pressing write a review will bring up a textbox where users can type out a review, but submitting currently does not work again due to not having anywhere to store the review and will be implemented once the server is set up. 
+
+You can also access a game's page by typing its exact name in the search bar and clicking enter. Once we implement the backend we will have a search results page so we can filter users vs game names and so we can build a more robust search functionality (the search bar will also be used to find users).
    
 ### Charts Page:
 
