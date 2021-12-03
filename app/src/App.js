@@ -8,12 +8,14 @@ import Profile from './components/profile/Profile.js';
 import Admin from './components/admin_dashboard/Admin.js';
 import NavBar from './components/NavBar';
 import SearchResults from './components/searchResults';
+import SignUp from './components/SignUp';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 let gamesSet = false;
 let gameList = [];
 function App() {
 	//let [page, setPage] = useState("home");
 	let [loggedIn, setLoggedIn] = useState(0);	// 0 = not loggedIn, 1 = user, 2 = admin
+  let [user, setUser] = useState(null);
   let [gameNames, setGameNames] = useState([]);
   let [games, setGames] = useState([]);
   let [matchedTerms, setMatchedTerms] = useState([]);
@@ -64,8 +66,11 @@ function App() {
 				<Switch>
 					<Route path="/game" component={Game} />	
 					<Route path="/charts" component={Charts} />	
+          <Route path="/signup">	
+						<SignUp loggedIn={loggedIn} setLoggedIn={setLoggedIn} user={user} setUser={setUser} />	
+					</Route>
 					<Route path="/login">	
-						<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />	
+						<Login app={this} loggedIn={loggedIn} setLoggedIn={setLoggedIn} user={user} setUser={setUser} />	
 					</Route>
 					<Route path="/profile"> <Profile />	</Route>
 					<Route path="/admin"> 	<Admin loggedIn={loggedIn}/>	</Route>
