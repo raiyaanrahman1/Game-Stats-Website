@@ -40,7 +40,7 @@ const SignUp = ({ user, setUser, loggedIn, setLoggedIn }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <p>
-          Already have an account? <Link to="/login"> Sign Up </Link>{" "}
+          Already have an account? <Link to="/login"> Login </Link>{" "}
         </p>{" "}
         <input className="loginBtn" type="submit" value="Login" />
       </form>
