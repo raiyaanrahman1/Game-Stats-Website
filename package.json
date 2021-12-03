@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "connect-mongo": "^4.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mongodb": "^4.2.1",
+    "mongoose": "^6.0.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc309-fall-2021/team61.git"
+  },
+  "author": "CSC309 team 61",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csc309-fall-2021/team61/issues"
+  },
+  "homepage": "https://github.com/csc309-fall-2021/team61#readme"
+}
