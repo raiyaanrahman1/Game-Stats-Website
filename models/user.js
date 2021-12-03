@@ -6,7 +6,14 @@ const mongoose = require('mongoose')
 
 const User = mongoose.model('User', {
 	
-	// TODO: 
+	// TODO: add more info
+	name: String,
+	psssword: String,
+	role: int,  			// 1 = user, 2 = admin
+
+	likedGames: [object.ID],
+	dislikedGames: [object.ID]
+
 })
 
 module.exports = { User }

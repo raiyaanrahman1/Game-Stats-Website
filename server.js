@@ -13,7 +13,7 @@ app.use(cors())
 
 // mongoose and mongo connection
 const { mongoose } = require("./db/mongoose");
-mongoose.set('useFindAndModify', false); // for some deprecation issues
+// mongoose.set('useFindAndModify', false); // for some deprecation issues
 
 // import the mongoose models
 // TODO:
@@ -71,9 +71,7 @@ app.use(
             httpOnly: true
         },
         // store the sessions on the database in production
-        store: env === 'production' ? MongoStore.create({
-                                                mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/StudentAPI'
-                                 }) : null
+        store: null,
     })
 );
 
@@ -94,7 +92,7 @@ app.post('/api/users', mongoChecker, async (req, res) => {
     log(req.body)
 
     // TODO: Create a new user
-    const user 
+    let user 
 
     try {
         // Save the user
@@ -109,3 +107,19 @@ app.post('/api/users', mongoChecker, async (req, res) => {
         }
     }
 })
+
+/*** Webpage routes below **********************************/
+// Serve the build
+app.use(express.static(__dirname + "/app/build"));
+
+// All routes other than above will go to index.html
+app.get("*", (req, res) => {
+    res.sendFile(__dirname + "/app/build/index.html");
+});
+
+/*************************************************/
+// Express server listening...
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+    log(`Listening on port ${port}...`);
+});
