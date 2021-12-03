@@ -8,12 +8,12 @@ const Game = mongoose.model('Game', {
 	
 	title: String,
 	publisher: String,
-	genres: String,
+	genres: [String],
 	description: String,
 	coverArt: String, // image url
-	numVotes: Integer,  
-	numLikes: Integer,
-	numReviews: Integer,
+	numVotes: Number,  
+	numLikes: Number,
+	numReviews: Number,
 	reviews: [], // TODO: TBD
 })
 

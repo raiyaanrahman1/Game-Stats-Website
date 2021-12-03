@@ -37,6 +37,39 @@ class Game extends React.Component {
         }
         this.setState = this.setState.bind(this);
     }
+
+    componentDidMount() {
+        if (this.state.gameID) {
+            fetch("/api/games/" + this.state.gameID) 
+                .then((response) => { 
+                    if (response.ok) {
+                        return response.json()
+                    } else {
+                        console.log("Invalid gameID")
+                        return Promise.reject("Invalid gameID")
+                    }
+                })
+                .then((data) => {
+                    console.log(data)
+                    if (data) {
+                        this.setState({
+                            title: data[0].title,
+                            publisher: data[0].publisher,
+                            genres: data[0].genres,
+                            description: data[0].description,
+                            coverArt: data[0].coverArt,
+                            numVotes: data[0].numVotes,
+                            numLikes: data[0].numLikes,
+                            numReviews: data[0].numReviews,
+                            //reviews: data[0].reviews,
+                        })
+                    }
+                })
+                .catch(err => {
+                    console.error("Failed to fetch", err)
+                })
+                }
+    }
     
     onClickLike = () => {
         console.log('like')

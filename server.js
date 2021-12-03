@@ -7,6 +7,9 @@ const express = require("express");
 // starting the express server
 const app = express();
 
+const bodyParser = require('body-parser')
+app.use(bodyParser.json());
+
 // enable CORS if in development, TODO: remove when deploy
 const cors = require('cors')
 app.use(cors())
@@ -108,6 +111,8 @@ app.post('/api/users', mongoChecker, async (req, res) => {
     }
 })
 
+const GameRoute = require('./gameRouter.js');
+app.use('/api/games', GameRoute);
 /*** Webpage routes below **********************************/
 // Serve the build
 app.use(express.static(__dirname + "/app/build"));
