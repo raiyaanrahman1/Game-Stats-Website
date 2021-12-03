@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { login } from "./../actions/user";
+import { updateSignUpForm, signup } from "./../actions/user";
 
-function Login({ user, setUser, loggedIn, setLoggedIn }) {
+const SignUp = ({ user, setUser, loggedIn, setLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  let history = useHistory();
 
-  const onLogin = (e) => {
+  const onSignUp = (e) => {
     e.preventDefault();
+    console.log("TESTING SIGNUP");
 
     if (!username || !password) {
       alert("Please enter a username and password.");
@@ -18,22 +18,12 @@ function Login({ user, setUser, loggedIn, setLoggedIn }) {
     setUsername(username);
     setPassword(password);
 
-    if (username === "admin" && password === "admin") {
-      setLoggedIn(2);
-      //props.setPage("home");
-      history.push("/");
-      //login to admin view
-    } else {
-      login(username, password, setUser, setLoggedIn);
-      if (loggedIn === 1) {
-        history.push("/");
-      }
-    }
+    signup(username, password, setUser, setLoggedIn);
   };
-
   return (
     <div className="page-content">
-      <form className="loginForm" onSubmit={onLogin}>
+      <p>Please enter a new username:</p>
+      <form className="loginForm" onSubmit={(e) => onSignUp(e)}>
         <input
           className="loginInput"
           type="text"
@@ -41,7 +31,7 @@ function Login({ user, setUser, loggedIn, setLoggedIn }) {
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
         />
-        <p></p>
+        <p>Please enter a new password:</p>
         <input
           className="loginInput"
           type="password"
@@ -50,12 +40,12 @@ function Login({ user, setUser, loggedIn, setLoggedIn }) {
           onChange={(e) => setPassword(e.target.value)}
         />
         <p>
-          Don't have an account? <Link to="/signup"> Sign Up </Link>{" "}
-        </p>
+          Already have an account? <Link to="/login"> Sign Up </Link>{" "}
+        </p>{" "}
         <input className="loginBtn" type="submit" value="Login" />
       </form>
     </div>
   );
-}
+};
 
-export default Login;
+export default SignUp;
