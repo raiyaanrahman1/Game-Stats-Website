@@ -10,6 +10,7 @@ import NavBar from './components/NavBar';
 import SearchResults from './components/searchResults';
 import SignUp from './components/SignUp';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import GameIcon from './components/GameIcon.js';
 let gamesSet = false;
 let gameList = [];
 function App() {
@@ -46,17 +47,57 @@ function App() {
   let names = [];
   
   //console.log(gamesSet);
-  if(!gamesSet){
-    for(let i = 0; i < NUM_GAME_ICONS; i++){
-      let gameID = (Math.random()*10000).toFixed(0);
-      //game_icons.push(<GameIcon gameID={gameID} size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
-      names.push("Game " + gameID);
-      gameList.push({name: "Game " + gameID, id: gameID});
+  // if(!gamesSet){
+  //   for(let i = 0; i < NUM_GAME_ICONS; i++){
+  //     let gameID = (Math.random()*10000).toFixed(0);
+  //     //game_icons.push(<GameIcon gameID={gameID} size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
+  //     names.push("Game " + gameID);
+  //     gameList.push({name: "Game " + gameID, id: gameID});
+  //   }
+  //   setGameNames(names);
+  //   setGames(gameList);
+  //   gamesSet = true;
+  // }
+
+  let [game_icons, setGameIcons] = useState([]);
+    
+    if(!gamesSet){
+      fetch("http://localhost:5000/api/games").then(res => {
+        if(res.ok) return res.json();
+        console.log("Couldn't get games");
+      }).then(games => {
+        console.log("got games");
+        let i = 0;
+        for(let game of games.games){
+          let percent;
+          if(game.numVotes === 0){
+            percent = 50;
+          }
+          else {
+            percent = game.numLikes / game.numVotes;
+          }
+
+          let colour;
+          if(percent < 50){
+            colour = "red-percent";
+          }
+          else if(percent < 75){
+            colour = "yellow-percent";
+          }
+          else {
+            colour = "green-percent";
+          }
+
+          let str_id = String(game._id);
+          game_icons.push(<GameIcon gameID={str_id.substring(str_id.length - 4, str_id.length)} size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
+          i++;
+        }
+        gamesSet = true;
+        setGameIcons([...game_icons]);
+        
+        // console.log(game_icons);
+      });
     }
-    setGameNames(names);
-    setGames(gameList);
-    gamesSet = true;
-  }
 
 	return (
 		<main className="App" >
@@ -74,7 +115,7 @@ function App() {
 					</Route>
 					<Route path="/profile"> <Profile />	</Route>
 					<Route path="/admin"> 	<Admin loggedIn={loggedIn}/>	</Route>
-					<Route path="/">		<Home gameNames={gameNames} setGameNames={setGameNames} games={gameList} setGames={setGames}/>	</Route>
+					<Route path="/">		<Home gameNames={gameNames} setGameNames={setGameNames} games={game_icons} setGames={setGames}/>	</Route>
           <Route path="/searchresults"> <SearchResults matchedTerms={matchedTerms}/> </Route>
         </Switch>
 			</BrowserRouter>
