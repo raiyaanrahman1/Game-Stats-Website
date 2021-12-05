@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { updateSignUpForm, signup } from "./../actions/user";
+import { Link } from "react-router-dom";
+import { /*updateSignUpForm,*/ signup } from "./../actions/user";
 
 const SignUp = ({ user, setUser, loggedIn, setLoggedIn }) => {
   const [username, setUsername] = useState("");

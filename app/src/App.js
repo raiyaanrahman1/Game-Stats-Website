@@ -18,46 +18,8 @@ function App() {
 	let [loggedIn, setLoggedIn] = useState(0);	// 0 = not loggedIn, 1 = user, 2 = admin
   let [user, setUser] = useState(null);
   let [gameNames, setGameNames] = useState([]);
-  let [games, setGames] = useState([]);
   let [matchedTerms, setMatchedTerms] = useState([]);
   
-// 	let mainComponent;
-//   switch(page){
-//     case "home":
-//       mainComponent = <Home />;
-//       break;
-//     case "game":
-//       mainComponent = <Game />;
-//       break;
-//     case "charts":
-//       mainComponent = <Charts />;
-//       break;
-//     case "login":
-//       mainComponent = <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setPage={setPage}/>;
-//       break;
-//     case "profile":
-//       mainComponent = <Profile />;
-//       break;
-//     default:
-//       mainComponent = <Home />;
-//   }
-
-  const NUM_GAME_ICONS = 20;
-      
-  let names = [];
-  
-  //console.log(gamesSet);
-  // if(!gamesSet){
-  //   for(let i = 0; i < NUM_GAME_ICONS; i++){
-  //     let gameID = (Math.random()*10000).toFixed(0);
-  //     //game_icons.push(<GameIcon gameID={gameID} size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
-  //     names.push("Game " + gameID);
-  //     gameList.push({name: "Game " + gameID, id: gameID});
-  //   }
-  //   setGameNames(names);
-  //   setGames(gameList);
-  //   gamesSet = true;
-  // }
 
   let [game_icons, setGameIcons] = useState([]);
     
@@ -88,8 +50,16 @@ function App() {
             colour = "green-percent";
           }
 
-          let str_id = String(game._id);
-          game_icons.push(<GameIcon gameID={str_id.substring(str_id.length - 4, str_id.length)} size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
+          game_icons.push(<GameIcon 
+              gameID={String(game._id)} 
+              title={game.title}
+              publisher={game.publisher}
+              cover={game.coverArt}
+              size="game-icon-regular" 
+              percent={percent} 
+              percentColour={colour} 
+              key={i}
+          />);
           i++;
         }
         gamesSet = true;
@@ -115,7 +85,7 @@ function App() {
 					</Route>
 					<Route path="/profile"> <Profile />	</Route>
 					<Route path="/admin"> 	<Admin loggedIn={loggedIn}/>	</Route>
-					<Route path="/">		<Home gameNames={gameNames} setGameNames={setGameNames} games={game_icons} setGames={setGames}/>	</Route>
+					<Route path="/">		<Home gameNames={gameNames} setGameNames={setGameNames} games={game_icons}/>	</Route>
           <Route path="/searchresults"> <SearchResults matchedTerms={matchedTerms}/> </Route>
         </Switch>
 			</BrowserRouter>
