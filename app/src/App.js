@@ -36,7 +36,7 @@ function App() {
             percent = 50;
           }
           else {
-            percent = game.numLikes / game.numVotes;
+            percent = game.numLikes / game.numVotes * 100;
           }
 
           let colour;
