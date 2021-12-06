@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { login } from "./../actions/user";
 
-function Login({ user, setUser, loggedIn, setLoggedIn }) {
+function Login({ app, user, setUser, loggedIn, setLoggedIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   let history = useHistory();
@@ -18,16 +18,9 @@ function Login({ user, setUser, loggedIn, setLoggedIn }) {
     setUsername(username);
     setPassword(password);
 
-    if (username === "admin" && password === "admin") {
-      setLoggedIn(2);
-      //props.setPage("home");
+    login(username, password, setUser, setLoggedIn);
+    if (loggedIn !== 0) {
       history.push("/");
-      //login to admin view
-    } else {
-      login(username, password, setUser, setLoggedIn);
-      if (loggedIn === 1) {
-        history.push("/");
-      }
     }
   };
 
@@ -50,7 +43,7 @@ function Login({ user, setUser, loggedIn, setLoggedIn }) {
           onChange={(e) => setPassword(e.target.value)}
         />
         <p>
-          Don't have an account? <Link to="/signup"> Sign Up </Link>{" "}
+          Don't have an account? <Link to="/signup"> Sign Up </Link>
         </p>
         <input className="loginBtn" type="submit" value="Login" />
       </form>
