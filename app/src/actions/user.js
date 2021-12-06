@@ -18,6 +18,8 @@ export const checkSession = ({ app, setLoggedIn, setUser }) => {
       })
       .then((json) => {
         if (json && json.currentUser) {
+          console.log(json.role);
+          console.log(json.currentUser);
           setLoggedIn(json.role);
           setUser(json.currentUser); //check if this is right later
         }
@@ -29,16 +31,6 @@ export const checkSession = ({ app, setLoggedIn, setUser }) => {
     setUser(ENV.user);
     setLoggedIn(1);
   }
-};
-
-// A functon to update the login form state
-export const updateLoginForm = (loginComp, field) => {
-  const value = field.value;
-  const name = field.name;
-
-  loginComp.setState({
-    [name]: value,
-  });
 };
 
 // A function to send a POST request with the user to be logged in
@@ -65,9 +57,9 @@ export const login = (username, password, setUser, setLoggedIn) => {
       }
     })
     .then((json) => {
-      if (json.currentUser !== undefined) {
+      if (json.currentUser !== undefined && json.role !== undefined) {
         setUser(json.currentUser);
-        setLoggedIn(1);
+        setLoggedIn(json.role);
         console.log("Logged in!");
       }
     })
@@ -117,5 +109,3 @@ export const signup = (username, password, setUser, setLoggedIn) => {
       console.log(error);
     });
 };
-
-export const updateSignUpForm = () => {};

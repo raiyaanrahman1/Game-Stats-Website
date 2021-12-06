@@ -12,6 +12,8 @@ import SignUp from './components/SignUp';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import GameIcon from './components/GameIcon.js';
 import { checkSession } from "./actions/user";
+import PrivateRoute from "./components/PrivateRoute";
+import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
 let gamesSet = false;
 let gameList = [];
 function App() {
@@ -21,8 +23,10 @@ function App() {
   let [gameNames, setGameNames] = useState([]);
   let [matchedTerms, setMatchedTerms] = useState([]);
   checkSession({ app: this, setLoggedIn: setLoggedIn, setUser: setUser }); // sees if a user is logged in
+
   console.log(user);
   console.log(loggedIn);
+
   let [game_icons, setGameIcons] = useState([]);
 
   if (!gamesSet) {
@@ -104,12 +108,16 @@ function App() {
               setUser={setUser}
             />
           </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/admin">
-            <Admin loggedIn={loggedIn} />
-          </Route>
+          <PrivateRoute
+            path="/profile"
+            component={Profile}
+            loggedIn={loggedIn}
+          />
+          <PrivateRouteAdmin
+            path="/admin"
+            component={Admin}
+            loggedIn={loggedIn}
+          />
           <Route path="/">
             <Home
               gameNames={gameNames}

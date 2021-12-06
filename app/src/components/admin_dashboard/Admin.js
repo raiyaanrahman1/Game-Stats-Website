@@ -5,16 +5,9 @@ import AdminStats from "./AdminStats";
 import AdminGames from "./AdminGames";
 import AdminUsers from "./AdminUsers";
 
-const Admin = (props) => {
-  let history = useHistory();
+const Admin = () => {
   let [mainFunctionality, setMainFunctionality] = useState("Stats");
   let page;
-
-  if (props.loggedIn < 2) {
-    console.log("You are not an admin");
-    history.push("/");
-    return <p>You are not an admin</p>;
-  }
 
   switch (mainFunctionality) {
     case "Stats":
