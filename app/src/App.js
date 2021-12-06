@@ -73,7 +73,7 @@ function App() {
         setGameIcons([...game_icons]);
 
         // console.log(game_icons);
-      });
+      }).catch(err => console.log("Couldn't get games from db " + err));
   }
 
   return (
