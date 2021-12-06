@@ -44,7 +44,7 @@ GameRoutes.get('/:id', (req, res) => {
 // add new game
 /*
 Request body expects: {
-	"title": <game name>,
+	"title": <game name, non-empty>,
     "publisher": <publisher name>,
 	"genres": <a list of genres>,
 	"description": <game description>,
@@ -57,7 +57,7 @@ GameRoutes.post('/', (req, res) => {
         publisher: req.body.publisher,
         genres: req.body.genres,
         description: req.body.description,
-        coverArt: req.body.coverArt, // TODO: add this to admin dashboard
+        coverArt: req.body.coverArt,
         numVotes: 0,  
         numLikes: 0,
         numReviews: 0,
@@ -75,5 +75,59 @@ GameRoutes.post('/', (req, res) => {
 
 });
 
+// search by title, not used
+GameRoutes.get('/search/:title', async (req, res) => {
+    const title = req.params.title
+
+    try {
+        const games = await Game.find(
+            { "title": { "$regex": title, "$options": "i" } },
+            function(err,docs) { 
+            } 
+        ).clone()
+        
+        console.log(games)
+        res.send({ games })
+    } catch(error) {
+        console.log(error)
+    }
+})
+
+
+// edit a game
+/*
+Request body expects: {
+	"title": <game name, non-empty>,
+    "publisher": <publisher name>,
+	"genres": <a list of genres>,
+	"description": <game description>,
+    "coverArt": <a url to the cover art>
+} */
+GameRoutes.patch('/:id', async (req, res) => {
+    console.log("patch", req.body)
+    
+    const id = req.params.id
+
+    if (!ObjectId.isValid(id)) {
+		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
+		return;  // so that we don't run the rest of the handler.
+	}
+
+    const game = await Game.findById(id)
+    if (!game) {
+        res.status(404).send('game not found')  // could not find this reservation
+        return
+    }
+
+    game.title = req.body.title
+    game.publisher = req.body.publisher
+    game.genres = req.body.genres
+    game.description = req.body.description
+    game.coverArt = req.body.coverArt
+    game.save()
+
+    res.send({game})
+
+});
 
 module.exports = GameRoutes;
