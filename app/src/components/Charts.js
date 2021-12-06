@@ -1,8 +1,33 @@
 import React from 'react';
-import Chart from './Chart';
+import { BarRankingChart } from './charts/BarRankingChart';
 
 // the URL for the request
-const url = "http://localhost:5000/api/games/";
+//const url = "http://localhost:5000/api/games/";
+const url = "/api/games";
+
+//------- Function to get various metrics. Will be passed into chart props
+
+//determines rating of a game
+function getRating(game) {
+    let rating = 0
+    if (game.numVotes != 0) {
+        rating = game.numLikes / game.numVotes
+    }
+    return rating
+}
+
+function getLikes(game) {
+    return game.numLikes
+}
+
+function getDislikes(game) {
+    return game.numVotes - game.numLikes
+}
+
+
+//-------
+
+
 
 const Charts = (props) => {
 
@@ -35,52 +60,39 @@ const Charts = (props) => {
             });
     };
 
-    function getHottestGames () {
-        console.log("getting top 5 hottest games games")
-        let top5Hottest = games.sort((a,b) => b.numLikes-a.numLikes).slice(0,5);
-        console.log(top5Hottest)
-    };
-
     getGames();
-    
-    //testing
-    games = [
-    {
-        gameID: 1,
-        title: "Game",
-        publisher: 'publisher',
-        genres: ['Genre 1', 'Genre 2', 'Genre 3'],
-        description: 'description',
-        coverArt: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg', // sample image
-        numVotes: 5,    // we dont need numDislikes because it can be calculated
-        numLikes: 3,
-        numReviews: 1,
-        reviews: [0],   // review ids
-    },
-    {
-        gameID: 2,
-        title: "Game2",
-        publisher: 'publisher',
-        genres: ['Genre 1', 'Genre 2', 'Genre 3'],
-        description: 'description',
-        coverArt: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg', // sample image
-        numVotes: 5,    // we dont need numDislikes because it can be calculated
-        numLikes: 5,
-        numReviews: 1,
-        reviews: [0],   // review ids
-    }
-    
-    ]
-    getHottestGames();
     
     return (
         <div>
             <h1 className="page-content"> This is the Charts page </h1>
-            {/* Placeholders, would normally actually determine heights and titles */}
-            {/* Note: max height is 325. Need to use percentage of likes/votes to find percentage of height to use */}
-            <Chart key={0} title={"Top 5 Hottest Games"} numBars={5} heights={[325, 275, 255, 150, 50]} titles={new Array(5).fill("game title")}></Chart>
-            <Chart key={1} title={"Newest Games"} numBars={6} heights={[275, 325, 150, 225, 50, 100]} titles={new Array(6).fill("game title")}></Chart>
-            <Chart key={2} title={"Worst Games"} numBars={15} heights={[200, 300, 150, 25, 50]} titles={new Array(15).fill("game title")}></Chart>
+            
+            <BarRankingChart 
+                games={games} 
+                metric={'Rating'} 
+                amount={10} 
+                title={'Top 10 Best Rated Games'} 
+                color={'rgba(0, 173, 217, 0.5)'}
+                getMetric={getRating}
+            />
+
+            <BarRankingChart 
+                games={games} 
+                metric={'Likes'} 
+                amount={10} 
+                title={'Top 10 Most Liked Games'} 
+                color={'rgba(0, 173, 217, 0.5)'}
+                getMetric={getLikes}
+            /> 
+
+            <BarRankingChart 
+                games={games} 
+                metric={'Dislikes'} 
+                amount={10} 
+                title={'Top 10 Most Disliked Games'} 
+                color={'rgba(237, 121, 40, 0.5)'}
+                getMetric={getDislikes}
+            /> 
+            
         </div>
     );
 };
