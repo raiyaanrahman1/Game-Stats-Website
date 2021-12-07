@@ -1,13 +1,16 @@
 .game-cover {
     position: absolute;
+    margin-left: 2vw;
     width: 30vw;
     max-height: 200px;
+    border: 1px solid black;
+    border-radius: 15px;
 }
 
 .game-info {
     margin-left: 35vw;
     width: 55vw;
-    min-height: 220px
+    min-height: 220px;
 }
 
 .game-likebar {
@@ -19,6 +22,15 @@
     clear: both;
     text-align: center;
     width: 110px;
+    background-color: orchid;
+}
+
+.game-likebar button {
+    background-color: transparent;
+    color: transparent;
+    text-shadow: 0 0 0 black;
+    border: none;
+    cursor: pointer;
 }
 
 .game-rate {
@@ -46,7 +58,14 @@
 
 .game-button {
     padding: 10px;
+    background-color: darkorchid;
+    color: white;
+    border: 1px solid rgb(98, 31, 131);
+    transition: background-color 1s;
+}
 
+.game-button:hover{
+    background-color: orchid;
 }
 
 .game-review {
@@ -55,6 +74,11 @@
     border: 1px solid black;
     padding: 10px;
     min-height: 80px;
+    background-image: linear-gradient(to bottom right, rgb(54, 47, 59),rgb(0, 0, 0));
+}
+
+.game-review:hover {
+    border: 1px solid white;
 }
 
 .game-review p {
@@ -88,9 +112,33 @@
     left: 35%;
     width: 40%;
     padding: 50px ;
-    background-color: rgba(0,0,0,0.9); 
+    background-color: rgba(0,0,0,0.7); 
     z-index: 2; 
     cursor: pointer; 
+}
+
+.game-addReview button {
+    padding: 10px;
+    background-color: darkorchid;
+    color: white;
+    border: 1px solid rgb(98, 31, 131);
+    transition: background-color 1s;
+}
+
+.game-addReview button:hover{
+    background-color: orchid;
+}
+
+.game-addReview input {
+    padding: 10px;
+    background-color: darkorchid;
+    color: white;
+    border: 1px solid rgb(98, 31, 131);
+    transition: background-color 1s;
+}
+
+.game-addReview input:hover{
+    background-color: orchid;
 }
 
 .game-addReview-input {
@@ -99,6 +147,7 @@
     margin: 8px 0;
     box-sizing: border-box;
     text-align: start;
+    resize: none;
   }
 
 .game-THW {
@@ -108,7 +157,26 @@
     width: 40%;
     padding: 50px ;
     cursor: pointer;
-    background-color: rgba(0,0,0,0.9); 
+    background-color: rgba(0,0,0,0.7); 
+}
+
+.game-THW button {
+    margin-top: 5px;
+    padding: 10px;
+    background-color: darkorchid;
+    color: white;
+    border: 1px solid rgb(98, 31, 131);
+    transition: background-color 1s;
+}
+
+.game-THW button:hover{
+    background-color: orchid;
+}
+
+.game-THW select {
+    background-color: darkorchid;
+    color: white;
+    border: 1px solid rgb(98, 31, 131);
 }
 
 .hidden {

@@ -11,7 +11,7 @@ const AddReview = (props) => {
                 <textarea type="text" name="review" className="game-addReview-input"/>
             </label> <br/>
             <input type="submit" value="Submit" />
-            <button onClick={props.close}> Cancel </button>
+            <button onClick={props.close}>Cancel</button>
         </form>
     </div>)
 

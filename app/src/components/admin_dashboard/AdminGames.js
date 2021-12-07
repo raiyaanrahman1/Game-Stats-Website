@@ -27,12 +27,12 @@ function AdminGames() {
     }
     console.log(gameData);
     if (!gameData.title) {
-      window.alert("game title must noot be empty")
+      window.alert("game title must not be empty")
       return
     }
     if (showForm) { // Add
 
-      fetch("http://localhost:5000/api/games", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gameData)}) 
+      fetch("api/games", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gameData)}) 
         .then((response) => {
           console.log(response.json());
           window.alert("Game has been added")
@@ -44,7 +44,7 @@ function AdminGames() {
         console.log("Invalid gameID")
         return
       }
-      fetch("http://localhost:5000/api/games/"+gameId, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gameData)}) 
+      fetch("api/games/"+gameId, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gameData)}) 
         .then((response) => {
           if (response.ok) {
             console.log(response.json());
@@ -66,7 +66,7 @@ function AdminGames() {
   const searchCallback = (gameSelected) => {
     setGameId(gameSelected.value)
     console.log(gameId)
-    fetch("http://localhost:5000/api/games/" + gameSelected.value) 
+    fetch("api/games/" + gameSelected.value) 
       .then((response) => { 
           if (response.ok) {
               return response.json()
@@ -93,18 +93,21 @@ function AdminGames() {
 
   return (
     <div className="admin-settings">
+      <span title="Switch Between Add and Edit">
       <button
         className="admin-add-game-button"
         onClick={() => setShowForm(!showForm)}
       >
         {showForm ? text2 : text1}
       </button>
-
+      </span>
+      <div className="admin-select-bar">
       {!showForm && (
         <Search 
           callback={searchCallback}
         />
       )}
+      </div>
       {!showForm && (
         <form className="admin-add-game-display" onSubmit={onSubmit}>
           <label>ID: {gameId}</label><br/>

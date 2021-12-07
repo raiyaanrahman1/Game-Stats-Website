@@ -16,7 +16,7 @@ export default class Search extends React.Component {
     }
 
     componentDidMount(){
-        fetch("http://localhost:5000/api/games/")
+        fetch("api/games/")
         .then( res => res.json())
         .then( res2 => {
             
@@ -52,13 +52,14 @@ export default class Search extends React.Component {
         console.log(this.state.options)
         return (
             <div>
+              <span title="Search for games">
               <Select 
                 styles={customStyles}
                 options={this.state.options} 
                 onChange={this.handleChange.bind(this)}
                 filterOption={filterOption} 
-                
-            />
+              />
+            </span>
             </div>
           )
     }

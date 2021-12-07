@@ -18,32 +18,25 @@ const NavBar = (props) => {
     <div className="nav">
       <ul className="navBar">
         <li className="navRegEl">
-          {" "}
-          <Link to="/">Home</Link>{" "}
+          <Link to="/">Home</Link>
         </li>
         {/* <li> <Link to="/game">Game</Link> </li> */}
         <li className="navRegEl">
-          {" "}
-          <Link to="/charts">Charts</Link>{" "}
+          <Link to="/charts">Charts</Link>
         </li>
         <li className={props.loggedIn ? "hidden right" : "navRegEl"}>
-          {" "}
-          <Link to="/login"> Login </Link>{" "}
+          <Link to="/login"> Login </Link>
         </li>
         <li className={props.loggedIn ? "navRegEl" : "right hidden"}>
-          {" "}
-          <Link to={`/user/${props.user}`}> My Profile </Link>{" "}
+          <Link to={`/user/${props.user}`}> My Profile </Link>
         </li>
         <li className={props.loggedIn > 1 ? "navRegEl" : "hidden"}>
-          {" "}
-          <Link to="/admin"> Admin </Link>{" "}
+          <Link to="/admin"> Admin </Link>
         </li>
         <li className={props.loggedIn ? "navRegEl" : "hidden"}>
-          {" "}
           <Link onClick={() => onLogout()} to="/">
-            {" "}
-            Logout{" "}
-          </Link>{" "}
+            Logout
+          </Link>
         </li>
       </ul>
 

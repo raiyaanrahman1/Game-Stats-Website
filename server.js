@@ -241,7 +241,7 @@ app.use(express.static(__dirname + "/app/build"));
 
 // All routes other than above will go to index.html
 app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/app/build/index.html");
+  res.sendFile(path.join(__dirname, "/app/build/index.html"));
 });
 
 /*************************************************/

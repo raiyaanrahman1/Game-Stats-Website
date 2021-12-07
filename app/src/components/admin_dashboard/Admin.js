@@ -28,9 +28,9 @@ const Admin = () => {
     <div className="admin-dashboard">
       <div>
         <ul className="admin-options">
-          <li onClick={() => setMainFunctionality("Stats")}>Stats</li>
-          <li onClick={() => setMainFunctionality("Games")}>Games</li>
-          <li onClick={() => setMainFunctionality("Users")}>Users</li>
+          <li onClick={() => setMainFunctionality("Stats")}><span title="Site Statistics">% Stats</span></li>
+          <li onClick={() => setMainFunctionality("Games")}><span title="Add or Edit Games">♙ Games</span></li>
+          <li onClick={() => setMainFunctionality("Users")}><span title="Manage Users">⚉ Users</span></li>
         </ul>
       </div>
       {page}
