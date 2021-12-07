@@ -9,14 +9,13 @@ class Game extends React.Component {
 
     constructor(props) {
         super(props);
-        
-        //console.log(gameID)  
+
 
         // Get game info based on gameID from server
         // Check userVoted
 
         this.state = {
-            userID: -1,
+            user: this.props.user,
             //gameData: {
                 gameID: -1,
                 title: "Game -1",
@@ -27,7 +26,6 @@ class Game extends React.Component {
                 numVotes: 5,    // we dont need numDislikes because it can be calculated
                 numLikes: 3,
                 numReviews: 1,
-                reviews: [0],   // review ids
             //},
             userVoted: 0, // 0: not yet voted, 1: like, -1: dislike
             showReview: 0,
@@ -40,7 +38,11 @@ class Game extends React.Component {
         this.componentDidUpdate()
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        if (!this.state.user && this.props.user) {
+            this.setState({user: this.props.user})
+        }
+
         const query = new URLSearchParams(this.props.location.search);
         const gameID = query.get('ID');
         
@@ -104,11 +106,12 @@ class Game extends React.Component {
     ReviewSubmit = (e) => {
         e.preventDefault();
         this.setState({showReview: 0})
-        // pass to server TODO
+        console.log(e.target)
     }
 
     
     render() {
+        console.log(this.state.user)
         return (
             <div className="game-main">
                 <img src={this.state.coverArt} alt="Cover" className = "game-cover"/>
@@ -126,17 +129,17 @@ class Game extends React.Component {
                 
                     
                 </div>
-                
-                <div className = "game-buttons">    {/* TODO: only shown if user is logged in */}
-                    <button className = "game-button" onClick={this.ShowReviewToggle}> <span title="Write a Review">✎ Write a Review</span></button>
-                    <button className = "game-button" onClick={this.showTHWToggle}><span title="Test my Hardware">☑ Test My Hardware</span></button>
-                    <button className = "game-button"onClick={()=>{console.log("Not implemented")}}><span title="Add to Favourites">✰ Add to Favorites</span></button>
-                </div>
-                
-                <Reviews reviewIDs={this.state.reviews}/>
+                {this.state.user && (
+                    <div className = "game-buttons"> 
+                        <button className = "game-button" onClick={this.ShowReviewToggle}> <span title="Write a Review">✎ Write a Review</span></button>
+                        <button className = "game-button" onClick={this.showTHWToggle}><span title="Test my Hardware">☑ Test My Hardware</span></button>
+                        <button className = "game-button"onClick={()=>{console.log("Not implemented")}}><span title="Add to Favourites">✰ Add to Favorites</span></button>
+                    </div>
+                )}
+                <Reviews gameID={this.state.gameID}/>
 
 
-                <AddReview showReview={this.state.showReview} ReviewSubmit={this.ReviewSubmit} close={this.ShowReviewToggle}/>
+                <AddReview showReview={this.state.showReview} gameId={this.state.gameID} user={this.state.user} close={this.ShowReviewToggle}/>
 
                 <TestHardware showTHW={this.state.showTHW} userID={this.state.userID} close={this.showTHWToggle}/>
 

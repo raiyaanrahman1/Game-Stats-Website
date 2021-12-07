@@ -119,7 +119,11 @@ function App() {
           setMatchedTerms={setMatchedTerms}
         />
         <Switch>
-          <Route path="/game" component={Game} />
+          <Route path="/game" 
+            render={(props) => (
+              <Game {...props} user={user} />
+            )} 
+          />
           <Route path="/charts">
             <Charts 
               games={games}

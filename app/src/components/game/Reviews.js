@@ -6,17 +6,48 @@ class Reviews extends React.Component {
         super(props);
 
         this.state = {
-            reviews:[{reviewID: 1, username: 'user1', timestamp: "", content: 'content1 content1 content1 content1 content1 content1', like: 1, numLikes: 0, numDislikes: 0},
-                     {reviewID: 2, username: 'user2', timestamp: "", content: ' content2 content2 content2 content2 content2 content2', like: 0, numLikes: 0, numDislikes: 0},
-                     {reviewID: 3, username: 'user3', timestamp: "", content: ' content3 content3 content3 content3 content3 content3', like: 0, numLikes: 0, numDislikes: 0},
-                     {reviewID: 4, username: 'user4', timestamp: "", content: ' content4 content4 content4 content4 content4 content4'+
-                     'longcontent longcontent longcontent longcontent longcontent longcontent longcontent longcontent longcontent longcontent'+
-                     'longcontent longcontent longcontent longcontent longcontent longcontent longcontent longcontent longcontent longcontent ', like: 1, numLikes: 0, numDislikes: 0},
-                     {reviewID: 5, username: 'user5', timestamp: "", content: ' content5 content5 content5 content5 content5 content5', like: 1, numLikes: 0, numDislikes: 0},
-                    ]
+            reviews:[]
         }
     }
 
+    componentDidMount() {
+        fetch("/api/review/game/" + this.props.gameID) 
+                .then((response) => { 
+                    if (response.ok) {
+                        return response.json()
+                    } else {
+                        console.log("Invalid gameID")
+                    }
+                })
+                .then((data) => {
+                    console.log(data)
+                    this.setState({reviews:data.review})
+                })
+                .catch(err => {
+                    console.error("Failed to fetch", err)
+                })
+
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.gameID != this.props.gameID || this.props.gameID === -1 ) {
+            fetch("/api/review/game/" + this.props.gameID) 
+                .then((response) => { 
+                    if (response.ok) {
+                        return response.json()
+                    } else {
+                        console.log("Invalid gameID")
+                    }
+                })
+                .then((data) => {
+                    console.log(data)
+                    this.setState({reviews:data.review})
+                })
+                .catch(err => {
+                    console.error("Failed to fetch", err)
+                })
+        }
+    }
     
 
     render() {
@@ -24,9 +55,9 @@ class Reviews extends React.Component {
             return <div className="game-review" 
                         key={index} 
                         id={"game-review-"+index} >
-                <h3>{review.username}</h3>
+                <h3>{review.user}</h3>
                 
-                <h3 className={review.like ? 'game-review-rate like': 'game-review-rate dislike'}> {review.like ? '👍' :'👎'} </h3>
+                {/*<h3 className={review.like ? 'game-review-rate like': 'game-review-rate dislike'}> {review.like ? '👍' :'👎'} </h3>*/}
                 
                 <p>{review.content}</p>
 

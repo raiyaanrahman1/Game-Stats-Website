@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb");
-const { mongoose } = require("./db/mongoose");
+// const { mongoose } = require("./db/mongoose");
 const { Game } = require("./models/game");
 
 const GameRoutes = require("express").Router();
@@ -33,7 +33,7 @@ GameRoutes.get("/:id", (req, res) => {
       res.send(games);
     },
     (error) => {
-      res.status(500).send(error);
+      res.status(400).send(error);
     }
   );
 });

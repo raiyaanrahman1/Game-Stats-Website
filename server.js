@@ -29,6 +29,7 @@ const { mongoose } = require("./db/mongoose");
 const { ObjectID } = require("mongodb");
 
 const { User } = require("./models/user");
+const {Review } = require("./models/review");
 
 // express-session for managing user sessions
 const session = require("express-session");
@@ -235,6 +236,62 @@ app.delete("/api/users", (req, res) => {
 
 const GameRoute = require("./gameRouter.js");
 app.use("/api/games", GameRoute);
+
+// get review by gameId
+app.get("/api/review/game/:gameId", (req, res) => {
+  const gameId = req.params.gameId;
+  if (!ObjectID.isValid(gameId)) {
+    res.status(404).send(); // if invalid id, definitely can't find resource, 404.
+    return; // so that we don't run the rest of the handler.
+  }
+  Review.find({ game: gameId}).then(
+    (review) => {
+      res.send({review});
+    },
+    (error) => {
+      res.status(400).send(error);
+    }
+  );
+})
+
+// get review by username
+app.get("/api/review/user/:username", (req, res) => {
+  const username = req.params.username;
+  Review.find({ user: username}).then(
+    (review) => {
+      res.send({review});
+    },
+    (error) => {
+      res.status(400).send(error);
+    }
+  );
+})
+
+/** add a new review
+    req body: {
+      user: <user name>
+      game: <game id>
+      content: <review content>
+    }
+*/
+app.post("/api/review", (req, res) => {
+  console.log(req.body);
+  const review = new Review({
+    user: req.body.user,
+    game: req.body.game,
+    content: req.body.content
+  })
+
+  review.save().then(
+    (saveRes) => {
+      res.send(saveRes);
+    },
+    (error) => {
+      res.status(400).send(error); // 400 for bad request
+    }
+  );
+})
+
 /*** Webpage routes below **********************************/
 // Serve the build
 app.use(express.static(__dirname + "/app/build"));

@@ -34,8 +34,13 @@ function AdminGames() {
 
       fetch("api/games", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gameData)}) 
         .then((response) => {
-          console.log(response.json());
-          window.alert("Game has been added")
+          if (response.ok) {
+            console.log(response.json());
+            window.alert("Game has been added")
+          } else {
+            window.alert("failed to add game")
+          }
+
         })
 
     } else {        // Edit
