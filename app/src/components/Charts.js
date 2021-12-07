@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarRankingChart } from './charts/BarRankingChart';
+import { BarRankingChart } from './Charts/BarRankingChart.js';
 
 // the URL for the request
 //const url = "http://localhost:5000/api/games/";
