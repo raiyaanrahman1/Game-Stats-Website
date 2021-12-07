@@ -8,72 +8,129 @@ import Profile from './components/profile/Profile.js';
 import Admin from './components/admin_dashboard/Admin.js';
 import NavBar from './components/NavBar';
 import SearchResults from './components/searchResults';
+import SignUp from './components/SignUp';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import GameIcon from './components/GameIcon.js';
+import { checkSession } from "./actions/user";
+import PrivateRoute from "./components/PrivateRoute";
+import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
 let gamesSet = false;
 let gameList = [];
 function App() {
-	//let [page, setPage] = useState("home");
-	let [loggedIn, setLoggedIn] = useState(0);	// 0 = not loggedIn, 1 = user, 2 = admin
+  //let [page, setPage] = useState("home");
+  let [loggedIn, setLoggedIn] = useState(0); // 0 = not loggedIn, 1 = user, 2 = admin
+  let [user, setUser] = useState(null);
   let [gameNames, setGameNames] = useState([]);
-  let [games, setGames] = useState([]);
   let [matchedTerms, setMatchedTerms] = useState([]);
-  
-// 	let mainComponent;
-//   switch(page){
-//     case "home":
-//       mainComponent = <Home />;
-//       break;
-//     case "game":
-//       mainComponent = <Game />;
-//       break;
-//     case "charts":
-//       mainComponent = <Charts />;
-//       break;
-//     case "login":
-//       mainComponent = <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setPage={setPage}/>;
-//       break;
-//     case "profile":
-//       mainComponent = <Profile />;
-//       break;
-//     default:
-//       mainComponent = <Home />;
-//   }
+  checkSession({ app: this, setLoggedIn: setLoggedIn, setUser: setUser }); // sees if a user is logged in
 
-  const NUM_GAME_ICONS = 20;
-      
-  let names = [];
-  
-  //console.log(gamesSet);
-  if(!gamesSet){
-    for(let i = 0; i < NUM_GAME_ICONS; i++){
-      let gameID = (Math.random()*10000).toFixed(0);
-      //game_icons.push(<GameIcon gameID={gameID} size="game-icon-regular" percent={percent} percentColour={colour} key={i}/>);
-      names.push("Game " + gameID);
-      gameList.push({name: "Game " + gameID, id: gameID});
-    }
-    setGameNames(names);
-    setGames(gameList);
-    gamesSet = true;
+  console.log(user);
+  console.log(loggedIn);
+
+  let [game_icons, setGameIcons] = useState([]);
+
+  if (!gamesSet) {
+    fetch("api/games")
+      .then((res) => {
+        if (res.ok) return res.json();
+        console.log("Couldn't get games");
+      })
+      .then((games) => {
+        console.log("got games");
+        let i = 0;
+        for (let game of games.games) {
+          let percent;
+          if (game.numVotes === 0) {
+            percent = 50;
+          } else {
+            percent = ((game.numLikes / game.numVotes) * 100).toFixed(0);
+          }
+
+          let colour;
+          if (percent < 50) {
+            colour = "red-percent";
+          } else if (percent < 75) {
+            colour = "yellow-percent";
+          } else {
+            colour = "green-percent";
+          }
+
+          game_icons.push(
+            <GameIcon
+              gameID={String(game._id)}
+              title={game.title}
+              publisher={game.publisher}
+              cover={game.coverArt}
+              size="game-icon-regular"
+              percent={percent}
+              percentColour={colour}
+              key={i}
+            />
+          );
+          i++;
+        }
+        gamesSet = true;
+        setGameIcons([...game_icons]);
+
+        // console.log(game_icons);
+      }).catch(err => console.log("Couldn't get games from db " + err));
   }
 
-	return (
-		<main className="App" >
-			<BrowserRouter>
-				<NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameNames={gameNames} games={gameList} setMatchedTerms={setMatchedTerms}/>
-			
-				<Switch>
-					<Route path="/game" component={Game} />	
-					<Route path="/charts" component={Charts} />	
-					<Route path="/login">	
-						<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />	
-					</Route>
-					<Route path="/profile"> <Profile />	</Route>
-					<Route path="/admin"> 	<Admin loggedIn={loggedIn}/>	</Route>
-					<Route path="/">		<Home gameNames={gameNames} setGameNames={setGameNames} games={gameList} setGames={setGames}/>	</Route>
-          <Route path="/searchresults"> <SearchResults matchedTerms={matchedTerms}/> </Route>
+  return (
+    <main className="App">
+      <BrowserRouter>
+        <NavBar
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          setUser={setUser}
+          gameNames={gameNames}
+          games={gameList}
+          setMatchedTerms={setMatchedTerms}
+        />
+
+        <Switch>
+          <Route path="/game" component={Game} />
+          <Route path="/charts" component={Charts} />
+          <Route path="/signup">
+            <SignUp
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              user={user}
+              setUser={setUser}
+            />
+          </Route>
+          <Route path="/login">
+            <Login
+              app={this}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              user={user}
+              setUser={setUser}
+            />
+          </Route>
+          <PrivateRoute
+            path="/profile"
+            component={Profile}
+            loggedIn={loggedIn}
+          />
+          <PrivateRouteAdmin
+            path="/admin"
+            component={Admin}
+            loggedIn={loggedIn}
+          />
+          <Route path="/">
+            <Home
+              gameNames={gameNames}
+              setGameNames={setGameNames}
+              games={game_icons}
+            />
+          </Route>
+          <Route path="/searchresults">
+            <SearchResults matchedTerms={matchedTerms} />
+          </Route>
         </Switch>
-			</BrowserRouter>
-		{/* previous implementation
+      </BrowserRouter>
+      {/* previous implementation
 		<ul className="navBar">
           <li> <button onClick={()=>{setPage("home");}}> Home </button>  </li>
           <li> <button onClick={()=>{setPage("game");}}> Game </button> </li>

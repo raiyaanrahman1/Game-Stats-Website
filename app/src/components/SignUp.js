@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { login } from "./../actions/user";
+import { Link } from "react-router-dom";
+import { /*updateSignUpForm,*/ signup } from "./../actions/user";
 
-function Login({ app, user, setUser, loggedIn, setLoggedIn }) {
+const SignUp = ({ user, setUser, loggedIn, setLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  let history = useHistory();
 
-  const onLogin = (e) => {
+  const onSignUp = (e) => {
     e.preventDefault();
 
     if (!username || !password) {
@@ -18,15 +17,12 @@ function Login({ app, user, setUser, loggedIn, setLoggedIn }) {
     setUsername(username);
     setPassword(password);
 
-    login(username, password, setUser, setLoggedIn);
-    if (loggedIn !== 0) {
-      history.push("/");
-    }
+    signup(username, password, setUser, setLoggedIn);
   };
-
   return (
     <div className="page-content">
-      <form className="loginForm" onSubmit={onLogin}>
+      <p>Please enter a new username:</p>
+      <form className="loginForm" onSubmit={(e) => onSignUp(e)}>
         <input
           className="loginInput"
           type="text"
@@ -34,7 +30,7 @@ function Login({ app, user, setUser, loggedIn, setLoggedIn }) {
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
         />
-        <p></p>
+        <p>Please enter a new password:</p>
         <input
           className="loginInput"
           type="password"
@@ -43,12 +39,12 @@ function Login({ app, user, setUser, loggedIn, setLoggedIn }) {
           onChange={(e) => setPassword(e.target.value)}
         />
         <p>
-          Don't have an account? <Link to="/signup"> Sign Up </Link>
-        </p>
-        <input className="loginBtn" type="submit" value="Login" />
+          Already have an account? <Link to="/login"> Login </Link>{" "}
+        </p>{" "}
+        <input className="loginBtn" type="submit" value="Sign Up" />
       </form>
     </div>
   );
-}
+};
 
-export default Login;
+export default SignUp;

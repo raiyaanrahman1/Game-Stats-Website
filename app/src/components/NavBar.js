@@ -1,30 +1,28 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import Search from './search'
+import { logout } from "./../actions/user";
 
 const NavBar = (props) => {
     let history = useHistory();
-    let [searchDialogue, setSearchDialogue] = useState("");
 
-    function resetSearchArea() {
-        setSearchDialogue("");
-        let searchBar = document.getElementById("searchBar");
-        searchBar.value = "";
+    const searchCallback = (gameSelected) => {
+        history.push("/game?ID=" + gameSelected.value);
     }
     
     return (
         <div className="nav">
             <ul className="navBar">
-                <li className="navRegEl"> <Link onClick={()=>{resetSearchArea()}} to="/">Home</Link> </li>
+                <li className="navRegEl"> <Link to="/"><span title="Home">⌂ Home</span></Link> </li>
                 {/* <li> <Link to="/game">Game</Link> </li> */}
-                <li className="navRegEl"> <Link onClick={()=>{resetSearchArea()}} to="/charts">Charts</Link> </li>
-                <li className={props.loggedIn ? "hidden right" : "navRegEl"}> <Link  onClick={()=>{resetSearchArea()}} to="/login"> Login </Link>  </li>
-                <li className={props.loggedIn ? "navRegEl" : "right hidden"}> <Link  onClick={()=>{resetSearchArea()}} to="/profile"> My Profile </Link> </li>
-                <li className={props.loggedIn > 1 ? "navRegEl" : "hidden"}> <Link onClick={()=>{resetSearchArea()}} to="/admin" > Admin </Link> </li>
-                <li className={props.loggedIn ? "navRegEl" : "hidden"}> <Link onClick={()=>{props.setLoggedIn(0); resetSearchArea()}} to="/" > Logout </Link> </li>
-			</ul>
+                <li className="navRegEl"> <Link to="/charts"><span title="Charts">☍ Charts</span></Link> </li>
+                <li className={props.loggedIn ? "hidden right" : "navRegEl"}> <Link to="/login"><span title="Login">➲ Login</span></Link>  </li>
+                <li className={props.loggedIn ? "navRegEl" : "right hidden"}> <Link to="/profile"><span title="My Profile">⚇ My Profile</span></Link> </li>
+                <li className={props.loggedIn > 1 ? "navRegEl" : "hidden"}> <Link to="/admin" ><span title="Admin">☰ Admin</span></Link> </li>
+                <li className={props.loggedIn ? "navRegEl" : "hidden"}> <Link onClick={()=>logout(props)} to="/" ><span title="Logout">➥ Logout</span></Link> </li>       
+			      </ul>
 
-            <div className="search-area">
+            {/* <div className="search-area">
                 <div className="dialogue-text">{searchDialogue}</div>
                 <form onSubmit={(e)=>{
                     e.preventDefault();
@@ -58,11 +56,13 @@ const NavBar = (props) => {
                     
                     }}>
                     <input id="searchBar" type="text" className="game-search-bar" placeholder="search for a game"/>
-                    {/* <button type="submit" className="game-button" ></button> */}
+                    <button type="submit" className="game-button" ></button> 
                 </form>
-                
-            </div>
             
+                
+            </div> */}
+            <Search callback={searchCallback}
+                    width={200}/>
             
         </div>
     );

@@ -10,8 +10,6 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         
-        const query = new URLSearchParams(this.props.location.search);
-        const gameID = query.get('ID');
         //console.log(gameID)  
 
         // Get game info based on gameID from server
@@ -20,8 +18,8 @@ class Game extends React.Component {
         this.state = {
             userID: -1,
             //gameData: {
-                gameID: gameID,
-                title: "Game " + gameID,
+                gameID: -1,
+                title: "Game -1",
                 publisher: 'publisher',
                 genres: ['Genre 1', 'Genre 2', 'Genre 3'],
                 description: 'description description description description description description description description description description description description description description description description description description description description',
@@ -39,8 +37,16 @@ class Game extends React.Component {
     }
 
     componentDidMount() {
-        if (this.state.gameID) {
-            fetch("/api/games/" + this.state.gameID) 
+        this.componentDidUpdate()
+    }
+
+    componentDidUpdate() {
+        const query = new URLSearchParams(this.props.location.search);
+        const gameID = query.get('ID');
+        
+        if (this.state.gameID !== gameID || this.state.gameID === -1) {
+            console.log(gameID)
+            fetch("api/games/" + gameID) 
                 .then((response) => { 
                     if (response.ok) {
                         return response.json()
@@ -53,6 +59,7 @@ class Game extends React.Component {
                     console.log(data)
                     if (data) {
                         this.setState({
+                            gameID: gameID,
                             title: data[0].title,
                             publisher: data[0].publisher,
                             genres: data[0].genres,
@@ -113,16 +120,16 @@ class Game extends React.Component {
                 <div className="game-info">
                     <h2 className = "game-title">{this.state.title}</h2>
                     <h3 className = "game-publisher">{this.state.publisher}</h3>
-                    <div className = "game-genre">{this.state.genres.map((genres, i) => (<span key={i}>{genres}, </span>) )} </div>
+                    <div className = "game-genre">{this.state.genres.map((genres, i) => (<span key={i}>'{genres}' </span>) )} </div>
                     <hr></hr>
                     <p className = "game-description">{this.state.description}</p>
                 
                     
                 </div>
                 <div className = "game-buttons">    {/* TODO: only shown if user is logged in */}
-                    <button className = "game-button" onClick={this.ShowReviewToggle}> Write a Review</button>
-                    <button className = "game-button" onClick={this.showTHWToggle}>Test My Hardware</button>
-                    <button className = "game-button"onClick={()=>{console.log("Not implemented")}}>Add to Favorite</button>
+                    <button className = "game-button" onClick={this.ShowReviewToggle}> <span title="Write a Review">✎ Write a Review</span></button>
+                    <button className = "game-button" onClick={this.showTHWToggle}><span title="Test my Hardware">☑ Test My Hardware</span></button>
+                    <button className = "game-button"onClick={()=>{console.log("Not implemented")}}><span title="Add to Favourites">✰ Add to Favorites</span></button>
                 </div>
                 
                 <Reviews reviewIDs={this.state.reviews}/>

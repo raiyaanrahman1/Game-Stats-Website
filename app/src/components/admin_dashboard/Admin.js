@@ -5,16 +5,9 @@ import AdminStats from "./AdminStats";
 import AdminGames from "./AdminGames";
 import AdminUsers from "./AdminUsers";
 
-const Admin = (props) => {
-  let history = useHistory();
+const Admin = () => {
   let [mainFunctionality, setMainFunctionality] = useState("Stats");
   let page;
-
-  if (props.loggedIn < 2) {
-    console.log("You are not an admin");
-    history.push("/");
-    return <p>You are not an admin</p>;
-  }
 
   switch (mainFunctionality) {
     case "Stats":
@@ -36,9 +29,9 @@ const Admin = (props) => {
       <div>
         {/*Ideally this should be in its own component but I can't figure out how to make it work*/}
         <ul className="admin-options">
-          <li onClick={() => setMainFunctionality("Stats")}>Stats</li>
-          <li onClick={() => setMainFunctionality("Games")}>Games</li>
-          <li onClick={() => setMainFunctionality("Users")}>Users</li>
+          <li onClick={() => setMainFunctionality("Stats")}><span title="Site Statistics">% Stats</span></li>
+          <li onClick={() => setMainFunctionality("Games")}><span title="Add or Edit Games">♙ Games</span></li>
+          <li onClick={() => setMainFunctionality("Users")}><span title="Manage Users">⚉ Users</span></li>
         </ul>
       </div>
       {page}

@@ -1,11 +1,8 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
   "dependencies": {
     "chart.js": "^3.6.1",
-    "connect-mongo": "^4.4.0",
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^4.6.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
@@ -13,10 +10,10 @@
     "mongoose": "^6.0.14",
     "react-chartjs-2": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "cd app && npm install && npm run build"
   },
   "repository": {
     "type": "git",

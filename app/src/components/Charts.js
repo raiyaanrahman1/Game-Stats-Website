@@ -24,9 +24,7 @@ function getDislikes(game) {
     return game.numVotes - game.numLikes
 }
 
-
 //-------
-
 
 
 const Charts = (props) => {
@@ -64,7 +62,7 @@ const Charts = (props) => {
     
     return (
         <div>
-            <h1 className="page-content"> This is the Charts page </h1>
+            <h1 className="page-content"> Statistics on the games in the system: </h1>
             
             <BarRankingChart 
                 games={games} 
@@ -92,7 +90,6 @@ const Charts = (props) => {
                 color={'rgba(237, 121, 40, 0.5)'}
                 getMetric={getDislikes}
             /> 
-            
         </div>
     );
 };
