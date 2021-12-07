@@ -64,61 +64,106 @@ Clicking Users button will allow the Admin to manage users. The admin can search
 # Session Routes
 
 /users/login:  ***************
+
 Method: POST
+
 Request:
+
 Response:
+
 
 /users/logout:  *************
+
 Method: GET
+
 Request:
+
 Response:
 
+
 /users/check-session: ************
+
 Method: GET
+
 Request:
+
 Response:
+
 
 # API routes
 
-/api/users:
+### /api/users
+
 Add a new user to the database 
+
 Method: POST
+
 Request: { 'username': <username>, 'password': <password>, 'role': <1 for reg user, 2 for admin> }
+
 Response: JSON of the database document added
 
-/api/users:
+
+### /api/users
+	
 Get all users in the database
+	
 Method: GET
+	
 Request: No body
+	
 Response: A list of all User database documents in the database
+	
 
-/api/users/:username:
+### /api/users/:username
+	
 Get a single user by username
+	
 Method: GET
+	
 Request: No body
+	
 Response: The user database document for this username
+	
 
-/api/users: ************************ Unused?
+### /api/users ************************ Unused?
+	
 ?
+	
 Method: DELETE
+	
 Request: 
+	
 Response:
+	
 
-/api/games:
+### /api/games
+	
 Get all games in the database 
+	
 Method: GET
+	
 Request: No body
+	
 Response: A list of all Game database documents in the database
+	
 
-/api/games/:id:
+### /api/games/:id
+	
 Get game by id
+	
 Method: GET
+	
 Request: No body
+	
 Response: The Game database document for this id
+	
 
-/api/games: **************************** should the request body have numVotes, numLikes etc.? uses them in route
+### /api/games **************************** should the request body have numVotes, numLikes etc.? uses them in route
+	
 Add a game to the database
+	
 Method: POST
+	
 Request: {
 	"title": <game name, non-empty>,
     "publisher": <publisher name>,
@@ -130,17 +175,27 @@ Request: {
    "numreviews": <number of reviews>,
    "reviews": <list of reviews on this game>,
 }
+	
 Response:
+	
 
-/api/games/search/:title:  ************** unused?
+### /api/games/search/:title  ************** unused?
+	
 ?
+	
 Method: GET
+	
 Request: 
+	
 Response: 
+	
 
-/api/games/:id:
+### /api/games/:id
+	
 Updated the game with the given id
+	
 Method: PATCH
+	
 Request: {
 	"title": <game name, non-empty>,
     "publisher": <publisher name>,
@@ -148,7 +203,9 @@ Request: {
 	"description": <game description>,
     "coverArt": <a url to the cover art>
 }
+	
 Response: The updated Game database document 
+	
 
 
 
