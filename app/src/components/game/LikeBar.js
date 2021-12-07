@@ -15,9 +15,9 @@ class LikeBar extends React.Component {
             percentage = Math.round(this.props.numLikes / this.props.numVotes * 100);
         }
         return(<div className="game-likebar">
-            <button onClick={this.props.like}>👍</button>
+            <button onClick={this.props.like}><span title="Like">👍</span></button>
             <h3 className="game-rate"> {percentage}% </h3>
-            <button onClick={this.props.dislike}>👎</button>
+            <button onClick={this.props.dislike}><span title="Dislike">👎</span></button>
             <p className="game-voteMessages">{this.voteMessages(this.props.userVoted)}</p>
         </div>
             

@@ -8,7 +8,7 @@ const Home = (props) => {
 
     return (
         <div className="page-content">
-            <div>This is the homepage</div>
+            <div>Browse Games:</div>
             {props.games}
         </div>
     );
