@@ -3,25 +3,32 @@
 const log = console.log;
 const path = require("path");
 
-const express = require("express");
-// starting the express server
+const env = process.env.NODE_ENV; // read the environment variable (will be 'production' in production mode)
+
+const USE_TEST_USER = env !== "production" && process.env.TEST_USER_ON; // option to turn on the test user.
+const TEST_USER_ID = "61adf86ceee1afe5ce7e988f"; // the id of our test user (you will have to replace it with a test user that you made). can also put this into a separate configutation file
+const TEST_USERNAME = "test";
+const TEST_ROLE = 1;
+
+const express = require("express"); // starting the express server
 const app = express();
 
+// body-parser: middleware for parsing parts of the request into a usable object (onto req.body)
 const bodyParser = require("body-parser");
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // parsing JSON body
+app.use(bodyParser.urlencoded({ extended: true })); // parsing URL-encoded form data (from form POST requests)
 
 // enable CORS if in development, TODO: remove when deploy
 const cors = require("cors");
-app.use(cors());
+if (env !== "production") {
+  app.use(cors());
+}
 
 // mongoose and mongo connection
 const { mongoose } = require("./db/mongoose");
-//mongoose.set("useFindAndModify", false); // for some deprecation issues
+const { ObjectID } = require("mongodb");
 
 const { User } = require("./models/user");
-
-// import the mongoose models
-// TODO:
 
 // express-session for managing user sessions
 const session = require("express-session");
@@ -49,7 +56,32 @@ const mongoChecker = (req, res, next) => {
 };
 
 // Middleware for authentication of resources
+
+/*** Session handling **************************************/
+// Create a session and session cookie
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "hardcoded secret", // make a SESSION_SECRET environment variable when deploying (for example, on heroku)
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 600000,
+      httpOnly: true,
+    },
+    // store the sessions on the database in production
+    store:
+      env === "production"
+        ? MongoStore.create({
+            mongoUrl:
+              process.env.MONGODB_URI || "mongodb://localhost:27017/API",
+          })
+        : null,
+  })
+);
+
 const authenticate = (req, res, next) => {
+  if (env !== "production" && USE_TEST_USER) req.session.user = TEST_USER_ID; // test user on development. (remember to run `TEST_USER_ON=true node server.js` if you want to use this user.)
+
   if (req.session.user) {
     User.findById(req.session.user)
       .then((user) => {
@@ -68,40 +100,35 @@ const authenticate = (req, res, next) => {
   }
 };
 
-/*** Session handling **************************************/
-// Create a session and session cookie
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "hardcoded secret", // make a SESSION_SECRET environment variable when deploying (for example, on heroku)
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      expires: 60000,
-      httpOnly: true,
-    },
-    // store the sessions on the database in production
-    store: null,
-  })
-);
-
-
 //Get all users, for debugging purposes
 app.get("/users", (req, res) => {
-    if (mongoose.connection.readyState != 1) {
-      log("Issue with mongoose connection");
-      res.status(500).send("Internal server error");
-      return;
-    }
-  
-    User.find()
-      .then((users) => {
-        res.send(users);
-      })
-      .catch((error) => {
-        log(error);
-        res.status(500).send("Internal Server Error");
-      });
-  });
+  if (mongoose.connection.readyState != 1) {
+    log("Issue with mongoose connection");
+    res.status(500).send("Internal server error");
+    return;
+  }
+
+  User.find()
+    .then((users) => {
+      res.send(users);
+    })
+    .catch((error) => {
+      log(error);
+      res.status(500).send("Internal Server Error");
+    });
+});
+
+//delete all users... need to get rid of this later lmao
+app.delete("/users", (req, res) => {
+  if (mongoose.connection.readyState != 1) {
+    log("Issue with mongoose connection");
+    res.status(500).send("Internal server error");
+    return;
+  }
+
+  User.collection.drop();
+  res.status(200).send("Deleted.");
+});
 
 // A route to login and create a session
 app.post("/users/login", (req, res) => {
@@ -116,14 +143,16 @@ app.post("/users/login", (req, res) => {
       // Add the user's id to the session.
       // We can check later if this exists to ensure we are logged in.
       req.session.user = user._id;
-      res.send({ currentUser: user.username });
+      req.session.username = user.username;
+      req.session.role = user.role;
+      res.send({ currentUser: user.username, role: user.role });
     })
     .catch((error) => {
       res.status(400).send();
     });
 });
 
-app.get("/users/logout", (req, res) => {
+app.get("/users/logout", authenticate, (req, res) => {
   // Remove the session
   req.session.destroy((error) => {
     if (error) {
@@ -135,24 +164,31 @@ app.get("/users/logout", (req, res) => {
 });
 
 app.get("/users/check-session", (req, res) => {
-    if (req.session.username) {
-        res.send({ currentUser: req.session.username });
-    } else {
-        res.status(401).send();
-    }
-});
+  if (env !== "production" && USE_TEST_USER) {
+    // test user on development environment.
+    req.session.user = TEST_USER_ID;
+    req.session.username = TEST_USERNAME;
+    res.send({ currentUser: TEST_USERNAME, role: TEST_ROLE });
+    return;
+  }
 
-/*********************************************************/
+  if (req.session.username) {
+    res.send({ currentUser: req.session.username, role: req.session.role });
+  } else {
+    res.status(401).send();
+  }
+});
 
 /*** Actual API Routes below ************************************/
 app.post("/api/users", mongoChecker, async (req, res) => {
-  log(req.body);
+  const username = req.body.username;
+  const password = req.body.password;
+  const role = req.body.role;
 
-  // TODO: Create a new user
   const user = new User({
-    username: req.body.username,
-    password: req.body.password,
-    role: 1,
+    username: username,
+    password: password,
+    role: role ? role : 1,
     likedGames: [],
     dislikedGames: [],
   });
@@ -165,9 +201,10 @@ app.post("/api/users", mongoChecker, async (req, res) => {
     if (isMongoError(error)) {
       // check for if mongo server suddenly disconnected before this request.
       res.status(500).send("Internal server error");
+    } else if (error.name === "MongoError" && error.code === 11000) {
+      res.status(400).send("User already exist!");
     } else {
-      log(error);
-      res.status(400).send("Bad Request"); // bad request for changing the student.
+      res.status(400).send(error);
     }
   }
 });
@@ -180,7 +217,7 @@ app.use(express.static(__dirname + "/app/build"));
 
 // All routes other than above will go to index.html
 app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/app/build/index.html");
+  res.sendFile(path.join(__dirname, "/app/build/index.html"));
 });
 
 /*************************************************/

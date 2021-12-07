@@ -83,7 +83,7 @@ body {
   flex-direction: column;
   margin: 20px;
   width: 200px;
-  height: 170px;
+  /* height: 170px; */
   padding: 5px;
 }
 
@@ -103,9 +103,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(154, 226, 255);
+  background-color: rgba(179, 179, 179, 0.479);
   height: 100px;
-  margin-bottom:20px;
+  margin-bottom:12px;
 }
 
 .info {
@@ -115,6 +115,8 @@ body {
 
 .title-publisher {
   display: inline-block;
+  width: 120px;
+  margin-bottom: 5px;
 }
 
 .publisher {
@@ -135,6 +137,7 @@ body {
 
 .percent {
   display: inline-block;
+  width: 30px;
 }
 
 .page-content {

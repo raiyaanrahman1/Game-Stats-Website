@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Search from './search'
+import { logout } from "./../actions/user";
 
 const NavBar = (props) => {
     let history = useHistory();
@@ -18,8 +19,8 @@ const NavBar = (props) => {
                 <li className={props.loggedIn ? "hidden right" : "navRegEl"}> <Link to="/login"><span title="Login">➲ Login</span></Link>  </li>
                 <li className={props.loggedIn ? "navRegEl" : "right hidden"}> <Link to="/profile"><span title="My Profile">⚇ My Profile</span></Link> </li>
                 <li className={props.loggedIn > 1 ? "navRegEl" : "hidden"}> <Link to="/admin" ><span title="Admin">☰ Admin</span></Link> </li>
-                <li className={props.loggedIn ? "navRegEl" : "hidden"}> <Link onClick={()=>{props.setLoggedIn(0)}} to="/" ><span title="Logout">➥ Logout</span></Link> </li>
-			</ul>
+                <li className={props.loggedIn ? "navRegEl" : "hidden"}> <Link onClick={()=>logout(props)} to="/" ><span title="Logout">➥ Logout</span></Link> </li>       
+			      </ul>
 
             {/* <div className="search-area">
                 <div className="dialogue-text">{searchDialogue}</div>

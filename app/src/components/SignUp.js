@@ -8,7 +8,6 @@ const SignUp = ({ user, setUser, loggedIn, setLoggedIn }) => {
 
   const onSignUp = (e) => {
     e.preventDefault();
-    console.log("TESTING SIGNUP");
 
     if (!username || !password) {
       alert("Please enter a username and password.");
@@ -42,7 +41,7 @@ const SignUp = ({ user, setUser, loggedIn, setLoggedIn }) => {
         <p>
           Already have an account? <Link to="/login"> Login </Link>{" "}
         </p>{" "}
-        <input className="loginBtn" type="submit" value="Signup" />
+        <input className="loginBtn" type="submit" value="Sign Up" />
       </form>
     </div>
   );

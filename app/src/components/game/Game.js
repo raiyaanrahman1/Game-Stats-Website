@@ -46,7 +46,7 @@ class Game extends React.Component {
         
         if (this.state.gameID !== gameID || this.state.gameID === -1) {
             console.log(gameID)
-            fetch("http://localhost:5000/api/games/" + gameID) 
+            fetch("api/games/" + gameID) 
                 .then((response) => { 
                     if (response.ok) {
                         return response.json()
