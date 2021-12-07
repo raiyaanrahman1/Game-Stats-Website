@@ -126,6 +126,7 @@ class Game extends React.Component {
                 
                     
                 </div>
+                
                 <div className = "game-buttons">    {/* TODO: only shown if user is logged in */}
                     <button className = "game-button" onClick={this.ShowReviewToggle}> <span title="Write a Review">✎ Write a Review</span></button>
                     <button className = "game-button" onClick={this.showTHWToggle}><span title="Test my Hardware">☑ Test My Hardware</span></button>
