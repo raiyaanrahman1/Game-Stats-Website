@@ -30,7 +30,7 @@ function App() {
   let [game_icons, setGameIcons] = useState([]);
 
   if (!gamesSet) {
-    fetch("http://localhost:5000/api/games")
+    fetch("api/games")
       .then((res) => {
         if (res.ok) return res.json();
         console.log("Couldn't get games");

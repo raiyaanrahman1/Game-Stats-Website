@@ -2,7 +2,7 @@ import React from 'react';
 import Chart from './Chart';
 
 // the URL for the request
-const url = "http://localhost:5000/api/games/";
+const url = "api/games/";
 
 const Charts = (props) => {
 
