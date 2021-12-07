@@ -55,10 +55,10 @@ GameRoutes.post("/", (req, res) => {
     genres: req.body.genres,
     description: req.body.description,
     coverArt: req.body.coverArt,
-    numVotes: 0,
-    numLikes: 0,
-    numReviews: 0,
-    reviews: [],
+    numVotes: req.body.numVotes,
+    numLikes: req.body.numLikes,
+    numReviews: req.body.numReviews,
+    reviews: req.body.reviews,
   });
 
   game.save().then(

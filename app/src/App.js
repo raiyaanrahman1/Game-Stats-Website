@@ -43,7 +43,7 @@ function App() {
           if (game.numVotes === 0) {
             percent = 50;
           } else {
-            percent = (game.numLikes / game.numVotes) * 100;
+            percent = ((game.numLikes / game.numVotes) * 100).toFixed(0);
           }
 
           let colour;
