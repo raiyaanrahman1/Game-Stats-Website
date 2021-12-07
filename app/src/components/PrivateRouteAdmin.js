@@ -1,6 +1,4 @@
 import { Route, Redirect } from "react-router-dom";
-import { checkSession } from "../actions/user";
-import { useState } from "react";
 
 function PrivateRouteAdmin({
   component: Component,

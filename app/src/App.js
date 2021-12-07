@@ -1,36 +1,59 @@
 import './App.css';
-import React, {useState} from 'react';
-import Home from './components/Home.js';
-import Game from './components/game/Game';
-import Charts from './components/Charts.js';
-import Login from './components/Login.js';
-import Profile from './components/profile/Profile.js';
-import Admin from './components/admin_dashboard/Admin.js';
-import NavBar from './components/NavBar';
-import SearchResults from './components/searchResults';
-import SignUp from './components/SignUp';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import GameIcon from './components/GameIcon.js';
+import { useState, useEffect } from "react";
+import Home from "./components/Home.js";
+import Game from "./components/game/Game";
+import Charts from "./components/Charts.js";
+import Login from "./components/Login.js";
+import Profile from "./components/profile/Profile.js";
+import Admin from "./components/admin_dashboard/Admin.js";
+import NavBar from "./components/NavBar";
+import SearchResults from "./components/searchResults";
+import SignUp from "./components/SignUp";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import GameIcon from "./components/GameIcon.js";
 import { checkSession } from "./actions/user";
 import PrivateRoute from "./components/PrivateRoute";
 import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
+import ENV from "./config";
+const API_HOST = ENV.api_host;
 let gamesSet = false;
 let gameList = [];
 function App() {
   //let [page, setPage] = useState("home");
-  let [loggedIn, setLoggedIn] = useState(0); // 0 = not loggedIn, 1 = user, 2 = admin
-  let [user, setUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(0); // 0 = not loggedIn, 1 = user, 2 = admin
+  const [user, setUser] = useState("");
   let [gameNames, setGameNames] = useState([]);
   let [matchedTerms, setMatchedTerms] = useState([]);
-  checkSession({ app: this, setLoggedIn: setLoggedIn, setUser: setUser }); // sees if a user is logged in
+  const [game_icons, setGameIcons] = useState([]);
 
-  console.log(user);
-  console.log(loggedIn);
+  checkSession({ app: this, setLoggedIn: setLoggedIn, setUser: setUser });
 
-  let [game_icons, setGameIcons] = useState([]);
+  // useEffect(() => {
+  //   /******************Check Session**************************/
+  //   const url = `${API_HOST}/users/check-session`;
+
+  //   fetch(url)
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         return res.json();
+  //       }
+  //     })
+  //     .then((json) => {
+  //       if (json && json.currentUser && json.role) {
+  //         console.log(json.role);
+  //         console.log(json.currentUser);
+  //         setLoggedIn(json.role);
+  //         setUser(json.currentUser);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("Not logged in.");
+  //     });
+  //   /********************************************/
+  // }, []);
 
   if (!gamesSet) {
-    fetch("http://localhost:5000/api/games")
+    fetch("api/games")
       .then((res) => {
         if (res.ok) return res.json();
         console.log("Couldn't get games");
@@ -43,7 +66,7 @@ function App() {
           if (game.numVotes === 0) {
             percent = 50;
           } else {
-            percent = (game.numLikes / game.numVotes) * 100;
+            percent = ((game.numLikes / game.numVotes) * 100).toFixed(0);
           }
 
           let colour;
@@ -73,8 +96,12 @@ function App() {
         setGameIcons([...game_icons]);
 
         // console.log(game_icons);
-      });
+      })
+      .catch((err) => console.log("Couldn't get games from db " + err));
   }
+
+  console.log(user);
+  console.log(loggedIn);
 
   return (
     <main className="App">
@@ -83,11 +110,11 @@ function App() {
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           setUser={setUser}
+          user={user}
           gameNames={gameNames}
           games={gameList}
           setMatchedTerms={setMatchedTerms}
         />
-
         <Switch>
           <Route path="/game" component={Game} />
           <Route path="/charts" component={Charts} />
@@ -108,10 +135,9 @@ function App() {
               setUser={setUser}
             />
           </Route>
-          <PrivateRoute
-            path="/profile"
-            component={Profile}
-            loggedIn={loggedIn}
+          <Route
+            path="/user/:username"
+            render={() => <Profile loggedIn={loggedIn} user={user} />}
           />
           <PrivateRouteAdmin
             path="/admin"

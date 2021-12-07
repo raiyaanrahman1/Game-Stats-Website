@@ -5,7 +5,15 @@ const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema({
   // TODO: add more info
-  username: { type: String, unique: true },
+  username: {
+    type: String,
+    unique: true,
+    maxlength: 10,
+  },
+  description: {
+    type: String,
+    maxlength: 200,
+  },
   password: String,
   role: Number, // 1 = user, 2 = admin
   likedGames: [],

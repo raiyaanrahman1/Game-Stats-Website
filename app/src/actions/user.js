@@ -69,13 +69,13 @@ export const login = (username, password, setUser, setLoggedIn) => {
 };
 
 // A function to send a GET request to logout the current user
-export const logout = (app) => {
+export const logout = ({ setUser, setLoggedIn }) => {
   const url = `${API_HOST}/users/logout`;
 
   fetch(url)
     .then((res) => {
-      app.setUser(null);
-      app.setLoggedIn(0);
+      setUser("");
+      setLoggedIn(0);
     })
     .catch((error) => {
       console.log(error);
@@ -109,3 +109,30 @@ export const signup = (username, password, setUser, setLoggedIn) => {
       console.log(error);
     });
 };
+
+export const getUserProfile = (username, setUserProfile) => {
+  const request = new Request(`${API_HOST}/api/users/${username}`, {
+    method: "get",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+  });
+
+  fetch(request)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res);
+        return res.json();
+      }
+    })
+    .then((json) => {
+      if (json) {
+        setUserProfile(json);
+        return json;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}; 

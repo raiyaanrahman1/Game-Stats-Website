@@ -27,7 +27,6 @@ const Admin = () => {
   return (
     <div className="admin-dashboard">
       <div>
-        {/*Ideally this should be in its own component but I can't figure out how to make it work*/}
         <ul className="admin-options">
           <li onClick={() => setMainFunctionality("Stats")}>Stats</li>
           <li onClick={() => setMainFunctionality("Games")}>Games</li>

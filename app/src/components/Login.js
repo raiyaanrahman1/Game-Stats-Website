@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { login } from "./../actions/user";
+import ENV from "../config";
+const API_HOST = ENV.api_host;
 
 function Login({ app, user, setUser, loggedIn, setLoggedIn }) {
   const [username, setUsername] = useState("");
@@ -18,9 +20,39 @@ function Login({ app, user, setUser, loggedIn, setLoggedIn }) {
     setUsername(username);
     setPassword(password);
 
-    login(username, password, setUser, setLoggedIn);
+    const userObj = {
+      username: username,
+      password: password,
+    };
+
+    const request = new Request(`${API_HOST}/users/login`, {
+      method: "post",
+      body: JSON.stringify(userObj),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+    });
+    // Send the request with fetch()
+    fetch(request)
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      })
+      .then((json) => {
+        if (json.currentUser !== undefined && json.role !== undefined) {
+          setUser(json.currentUser);
+          setLoggedIn(json.role);
+          console.log("Logged in!");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     if (loggedIn !== 0) {
-      history.push("/");
+      history.go("/");
     }
   };
 

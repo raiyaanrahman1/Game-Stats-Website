@@ -100,36 +100,6 @@ const authenticate = (req, res, next) => {
   }
 };
 
-//Get all users, for debugging purposes
-app.get("/users", (req, res) => {
-  if (mongoose.connection.readyState != 1) {
-    log("Issue with mongoose connection");
-    res.status(500).send("Internal server error");
-    return;
-  }
-
-  User.find()
-    .then((users) => {
-      res.send(users);
-    })
-    .catch((error) => {
-      log(error);
-      res.status(500).send("Internal Server Error");
-    });
-});
-
-//delete all users... need to get rid of this later lmao
-app.delete("/users", (req, res) => {
-  if (mongoose.connection.readyState != 1) {
-    log("Issue with mongoose connection");
-    res.status(500).send("Internal server error");
-    return;
-  }
-
-  User.collection.drop();
-  res.status(200).send("Deleted.");
-});
-
 // A route to login and create a session
 app.post("/users/login", (req, res) => {
   const username = req.body.username;
@@ -188,6 +158,7 @@ app.post("/api/users", mongoChecker, async (req, res) => {
   const user = new User({
     username: username,
     password: password,
+    description: "",
     role: role ? role : 1,
     likedGames: [],
     dislikedGames: [],
@@ -207,6 +178,59 @@ app.post("/api/users", mongoChecker, async (req, res) => {
       res.status(400).send(error);
     }
   }
+});
+
+//Get all users, for debugging purposes
+app.get("/api/users", (req, res) => {
+  if (mongoose.connection.readyState != 1) {
+    log("Issue with mongoose connection");
+    res.status(500).send("Internal server error");
+    return;
+  }
+
+  User.find()
+    .then((users) => {
+      res.send(users);
+    })
+    .catch((error) => {
+      log(error);
+      res.status(500).send("Internal Server Error");
+    });
+});
+
+app.get(("/api/users/:username") , (req, res) => {
+  const username = req.params.username;
+
+  if (mongoose.connection.readyState != 1) {
+    log("Issue with mongoose connection");
+    res.status(500).send("Internal server error");
+    return;
+  }
+
+  User.findOne({username: username})
+    .then((user) => {
+      if (!user) {
+        res.status(400).send("Resource not found");
+      } else {
+        res.send(user);
+      }
+    })
+    .catch((error) => {
+      log(error);
+      res.status(500).send("Internal Server Error");
+    });
+  });
+
+//delete all users... need to get rid of this later lmao
+app.delete("/api/users", (req, res) => {
+  if (mongoose.connection.readyState != 1) {
+    log("Issue with mongoose connection");
+    res.status(500).send("Internal server error");
+    return;
+  }
+
+  User.collection.drop();
+  res.status(200).send("Deleted.");
 });
 
 const GameRoute = require("./gameRouter.js");

@@ -1,28 +1,53 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Search from './search'
-import { logout } from "./../actions/user";
+import { logout } from "../actions/user";
 
 const NavBar = (props) => {
-    let history = useHistory();
+  let history = useHistory();
 
-    const searchCallback = (gameSelected) => {
-        history.push("/game?ID=" + gameSelected.value);
-    }
-    
-    return (
-        <div className="nav">
-            <ul className="navBar">
-                <li className="navRegEl"> <Link to="/">Home</Link> </li>
-                {/* <li> <Link to="/game">Game</Link> </li> */}
-                <li className="navRegEl"> <Link to="/charts">Charts</Link> </li>
-                <li className={props.loggedIn ? "hidden right" : "navRegEl"}> <Link to="/login"> Login </Link>  </li>
-                <li className={props.loggedIn ? "navRegEl" : "right hidden"}> <Link to="/profile"> My Profile </Link> </li>
-                <li className={props.loggedIn > 1 ? "navRegEl" : "hidden"}> <Link to="/admin" > Admin </Link> </li>
-                <li className={props.loggedIn ? "navRegEl" : "hidden"}> <Link onClick={()=>logout(props)} to="/" > Logout </Link> </li>
-			</ul>
+  const searchCallback = (gameSelected) => {
+    history.push("/game?ID=" + gameSelected.value);
+  };
 
-            {/* <div className="search-area">
+  const onLogout = () => {
+    logout({ setUser: props.setUser, setLoggedIn: props.setLoggedIn });
+  };
+
+  return (
+    <div className="nav">
+      <ul className="navBar">
+        <li className="navRegEl">
+          {" "}
+          <Link to="/">Home</Link>{" "}
+        </li>
+        {/* <li> <Link to="/game">Game</Link> </li> */}
+        <li className="navRegEl">
+          {" "}
+          <Link to="/charts">Charts</Link>{" "}
+        </li>
+        <li className={props.loggedIn ? "hidden right" : "navRegEl"}>
+          {" "}
+          <Link to="/login"> Login </Link>{" "}
+        </li>
+        <li className={props.loggedIn ? "navRegEl" : "right hidden"}>
+          {" "}
+          <Link to={`/user/${props.user}`}> My Profile </Link>{" "}
+        </li>
+        <li className={props.loggedIn > 1 ? "navRegEl" : "hidden"}>
+          {" "}
+          <Link to="/admin"> Admin </Link>{" "}
+        </li>
+        <li className={props.loggedIn ? "navRegEl" : "hidden"}>
+          {" "}
+          <Link onClick={() => onLogout()} to="/">
+            {" "}
+            Logout{" "}
+          </Link>{" "}
+        </li>
+      </ul>
+
+      {/* <div className="search-area">
                 <div className="dialogue-text">{searchDialogue}</div>
                 <form onSubmit={(e)=>{
                     e.preventDefault();
@@ -61,11 +86,9 @@ const NavBar = (props) => {
             
                 
             </div> */}
-            <Search callback={searchCallback}
-                    width={200}/>
-            
-        </div>
-    );
+      <Search callback={searchCallback} width={200} />
+    </div>
+  );
 };
 
 export default NavBar;
