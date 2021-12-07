@@ -42,7 +42,7 @@ const SignUp = ({ user, setUser, loggedIn, setLoggedIn }) => {
         <p>
           Already have an account? <Link to="/login"> Login </Link>{" "}
         </p>{" "}
-        <input className="loginBtn" type="submit" value="Login" />
+        <input className="loginBtn" type="submit" value="Signup" />
       </form>
     </div>
   );

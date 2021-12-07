@@ -12,13 +12,13 @@ const NavBar = (props) => {
     return (
         <div className="nav">
             <ul className="navBar">
-                <li className="navRegEl"> <Link to="/">Home</Link> </li>
+                <li className="navRegEl"> <Link to="/"><span title="Home">⌂ Home</span></Link> </li>
                 {/* <li> <Link to="/game">Game</Link> </li> */}
-                <li className="navRegEl"> <Link to="/charts">Charts</Link> </li>
-                <li className={props.loggedIn ? "hidden right" : "navRegEl"}> <Link to="/login"> Login </Link>  </li>
-                <li className={props.loggedIn ? "navRegEl" : "right hidden"}> <Link to="/profile"> My Profile </Link> </li>
-                <li className={props.loggedIn > 1 ? "navRegEl" : "hidden"}> <Link to="/admin" > Admin </Link> </li>
-                <li className={props.loggedIn ? "navRegEl" : "hidden"}> <Link onClick={()=>{props.setLoggedIn(0)}} to="/" > Logout </Link> </li>
+                <li className="navRegEl"> <Link to="/charts"><span title="Charts">☍ Charts</span></Link> </li>
+                <li className={props.loggedIn ? "hidden right" : "navRegEl"}> <Link to="/login"><span title="Login">➲ Login</span></Link>  </li>
+                <li className={props.loggedIn ? "navRegEl" : "right hidden"}> <Link to="/profile"><span title="My Profile">⚇ My Profile</span></Link> </li>
+                <li className={props.loggedIn > 1 ? "navRegEl" : "hidden"}> <Link to="/admin" ><span title="Admin">☰ Admin</span></Link> </li>
+                <li className={props.loggedIn ? "navRegEl" : "hidden"}> <Link onClick={()=>{props.setLoggedIn(0)}} to="/" ><span title="Logout">➥ Logout</span></Link> </li>
 			</ul>
 
             {/* <div className="search-area">

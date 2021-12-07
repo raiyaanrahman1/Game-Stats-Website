@@ -52,13 +52,14 @@ export default class Search extends React.Component {
         console.log(this.state.options)
         return (
             <div>
+              <span title="Search for games">
               <Select 
                 styles={customStyles}
                 options={this.state.options} 
                 onChange={this.handleChange.bind(this)}
                 filterOption={filterOption} 
-                
-            />
+              />
+            </span>
             </div>
           )
     }
