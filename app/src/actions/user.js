@@ -98,16 +98,16 @@ export const signup = (username, password, setUser, setLoggedIn) => {
     },
   });
 
-  fetch(request)
+  return fetch(request)
     .then((res) => {
       if (res.status === 200) {
         console.log("Signed Up!");
         return res.json();
       }
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    // .catch((error) => {
+    //   console.log(error);
+    // });
 };
 
 export const getUserProfile = (username, setUserProfile) => {

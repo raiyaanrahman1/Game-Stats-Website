@@ -59,6 +59,7 @@ function App() {
         console.log("Couldn't get games");
       })
       .then((games) => {
+        let new_game_icons = [];
         console.log("got games");
         let i = 0;
         for (let game of games.games) {
@@ -78,7 +79,7 @@ function App() {
             colour = "green-percent";
           }
 
-          game_icons.push(
+          new_game_icons.push(
             <GameIcon
               gameID={String(game._id)}
               title={game.title}
@@ -93,7 +94,7 @@ function App() {
           i++;
         }
         gamesSet = true;
-        setGameIcons([...game_icons]);
+        setGameIcons(new_game_icons);
 
         // console.log(game_icons);
       })

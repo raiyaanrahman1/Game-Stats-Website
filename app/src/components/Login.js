@@ -45,15 +45,15 @@ function Login({ app, user, setUser, loggedIn, setLoggedIn }) {
           setUser(json.currentUser);
           setLoggedIn(json.role);
           console.log("Logged in!");
+          if (json.role !== 0) {
+            history.push("/");
+          }
         }
       })
       .catch((error) => {
         console.log(error);
       });
 
-    if (loggedIn !== 0) {
-      history.go("/");
-    }
   };
 
   return (
