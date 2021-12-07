@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from "react";
 import Home from "./components/Home.js";
 import Game from "./components/game/Game";
-import Charts from "./components/Charts.js";
+import Charts from "./components/Charts/Charts.js";
 import Login from "./components/Login.js";
 import Profile from "./components/profile/Profile.js";
 import Admin from "./components/admin_dashboard/Admin.js";
@@ -25,6 +25,7 @@ function App() {
   let [gameNames, setGameNames] = useState([]);
   let [matchedTerms, setMatchedTerms] = useState([]);
   const [game_icons, setGameIcons] = useState([]);
+  const [games, setGames] = useState([]);
 
   checkSession({ app: this, setLoggedIn: setLoggedIn, setUser: setUser });
 
@@ -95,6 +96,7 @@ function App() {
         }
         gamesSet = true;
         setGameIcons(new_game_icons);
+        setGames(games.games);
 
         // console.log(game_icons);
       })
@@ -118,7 +120,11 @@ function App() {
         />
         <Switch>
           <Route path="/game" component={Game} />
-          <Route path="/charts" component={Charts} />
+          <Route path="/charts">
+            <Charts 
+              games={games}
+            />
+          </Route>
           <Route path="/signup">
             <SignUp
               loggedIn={loggedIn}
