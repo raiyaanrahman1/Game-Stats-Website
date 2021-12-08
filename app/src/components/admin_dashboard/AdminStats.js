@@ -19,7 +19,7 @@ function AdminStats() {
 			setGameCount(json.games.length);
 		}
 		
-	});
+	}).catch(err => {console.log(err)});
 
 	fetch("api/users").then(res => {
 		if(res.ok){

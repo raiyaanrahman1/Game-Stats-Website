@@ -224,16 +224,16 @@ app.get(("/api/users/:username") , (req, res) => {
   });
 
 //delete all users... need to get rid of this later lmao
-app.delete("/api/users", (req, res) => {
-  if (mongoose.connection.readyState != 1) {
-    log("Issue with mongoose connection");
-    res.status(500).send("Internal server error");
-    return;
-  }
+// app.delete("/api/users", (req, res) => {
+//   if (mongoose.connection.readyState != 1) {
+//     log("Issue with mongoose connection");
+//     res.status(500).send("Internal server error");
+//     return;
+//   }
 
-  User.collection.drop();
-  res.status(200).send("Deleted.");
-});
+//   User.collection.drop();
+//   res.status(200).send("Deleted.");
+// });
 
 app.post("/api/users/:username/updateDesc", (req, res) => {
   if (mongoose.connection.readyState != 1) {
