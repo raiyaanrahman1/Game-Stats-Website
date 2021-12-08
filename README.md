@@ -150,17 +150,6 @@ Request: {
    "reviews": <list of reviews on this game>,
 }
 	
-Response:
-	
-
-### /api/games/search/:title  ************** unused?
-	
-?
-	
-Method: GET
-	
-Request: 
-	
 Response: 
 	
 
