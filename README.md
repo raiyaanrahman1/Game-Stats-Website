@@ -28,11 +28,13 @@ that you should be able to see on the homepage
 
 ### Games page:
 
-Clicking on a game on the homepage brings up a page providing more detail about the game such as genres, description, and a list of user reviews. You can click on the thumbs up and thumbs down buttons to like or dislike the game and the percentage will change accordingly.   
-Between the game description and the reviews, there are 3 buttons:
-The 'test my hardware' will bring up a window for users to select and check whatever the hardware provided is capable of running the current game.
-Pressing 'write a review' will bring up a textbox where users can type out a review for the game and submit it to the website.
-Pressing 'add to favourites' will add the game to the user's favourite games list.
+Clicking on a game on the homepage brings up a page providing more detail about the game such as genres, description, and a list of user reviews. You can click on the thumbs up and thumbs down buttons to like or dislike the game and the percentage will change.   
+
+Between the game description and the reviews, there are 2 buttons (only available for users who are logged in):
+
+The 'test my hardware' will bring up a window for users to select and check whatever the hardware provided is capable of running the current game. The user can enter their cpu mark (can look up online). Then, the app will compute the average cpu mark of reviews on this game and if the user's cpu mark is >= the average, a the result will say that the hardware should be good enough to run the game. If it is less than the average, the result will say that the user might have difficulty running the game. If there aren't any reviews will cpu mark's given, then the result will say that it couldn't compute the average. Note that the page may need to be reloaded if any reviews were recently added in order to incorporate them into the calculation.
+
+Pressing 'write a review' will bring up a textbox where users can type out a review for the game and submit it to the website. They can optionally add the cpu mark for the cpu on the hardware they used to run the game. 
 
 You can also access a game's page by typing its name in the search bar on the home page and clicking enter.
    
@@ -43,55 +45,26 @@ most liked games, most reviewed games, etc. You can hover over a bar in a chart 
 
 ### Login:
 
-Clicking the login button at the top of the website brings up the login page. Users can login with an existing profile's username and password, or create a new one by pressing sign up. 
+Clicking the login button at the top of the website brings up the login page. Users can login with an existing profile's username and password, or create a new one by pressing sign up. If the invalid username or password are entered during login, nothing will happen when you try pressing the login button. 
 
 #### Regular User Login: 
 
-Can log in with username: user and password: user to sign in as an example regular user. The MyProfile button will bring up the user's profile page displaying the user's information such as profile pic, username, description, their top games, and their top reviews. 
+Can log in with username: user and password: user to sign in as an example regular user. The MyProfile button will bring up the user's profile page displaying the user's information. 
 
 #### Admin Login: 
 
 Can log in with username: admin and password: admin to see admin funcitonality. Is similiar to the regular user login except that it also creates an Admin button at the top that opens up the admin dashboard. Admins have 3 options on the dashboard: 
 -Stats:
-Clicking the Stats button displays some current website statistics
+Clicking the Stats button displays some current website statistics such as number of users and number of games
 -Games:
 Clicking Games button will allow the Admin to add or edit a game. It starts on Edit mode where the admin can use the search bar to find a game in the system and then modify it's data fields. Clicking on 'add a game' will switch to Add mode where the admin can fill in the info for a game and then add it to the database. 
 -Users:
-Clicking Users button will allow the Admin to manage users. The admin can search up a user with the search bar. "Ban User' will remove the user from the database. 'Edit user profile' will let the Admin edit the User's profile information such as profile picture, username, and description. 'Edit User's reviews' will let the admin edit a review the user made. 
+Clicking Users button will allow the Admin to look up users in the system.
 
 ### Sign Up:
 Signing up with a username and password adds a new regular user to the database and automatically logs you in as that user. Usernames have a maximum length of 20 characters
 
 ## -Server routes-
-
-# Session Routes
-
-/users/login:  ***************
-
-Method: POST
-
-Request:
-
-Response:
-
-
-/users/logout:  *************
-
-Method: GET
-
-Request:
-
-Response:
-
-
-/users/check-session: ************
-
-Method: GET
-
-Request:
-
-Response:
-
 
 # API routes
 
@@ -126,7 +99,17 @@ Method: GET
 Request: No body
 	
 Response: The user database document for this username
+	
+### /api/users/:username/updateDesc
 
+Update user description
+	
+Method: POST
+	
+Request: { 'username': <username>, 'description': <description>, }
+	
+Response: 200 code
+	
 ### /api/games
 	
 Get all games in the database 
@@ -149,7 +132,7 @@ Request: No body
 Response: The Game database document for this id
 	
 
-### /api/games **************************** should the request body have numVotes, numLikes etc.? uses them in route
+### /api/games
 	
 Add a game to the database
 	
