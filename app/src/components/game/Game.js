@@ -141,7 +141,7 @@ class Game extends React.Component {
 
                 <AddReview showReview={this.state.showReview} gameId={this.state.gameID} user={this.state.user} close={this.ShowReviewToggle}/>
 
-                <TestHardware showTHW={this.state.showTHW} userID={this.state.userID} close={this.showTHWToggle}/>
+                <TestHardware gameID={this.state.gameID} showTHW={this.state.showTHW} userID={this.state.userID} close={this.showTHWToggle}/>
 
             </div>
             
