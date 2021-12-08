@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getUserProfile } from "../../actions/user";
 
-function Profile({ loggedIn, user }) {
+function Profile({ loggedIn, user, gameIcons }) {
   const [userProfile, setUserProfile] = useState(null);
   const location = useLocation();
   const username = location.pathname.split("/").at(-1);
@@ -14,20 +14,45 @@ function Profile({ loggedIn, user }) {
     getUserProfile(username, setUserProfile);
   }, []);
 
+  console.log(userProfile);
   if (userProfile && user === username) {
     return (
       <div className="profile-page">
-        <ProfileIcon userProfile={userProfile} myProfile={true} />
-        <ProfileGames userProfile={userProfile} myProfile={true} />
-        <ProfileReviews userProfile={userProfile} myProfile={true} />
+        <ProfileIcon
+          userProfile={userProfile}
+          myProfile={true}
+          gameIcons={gameIcons}
+        />
+        <ProfileGames
+          userProfile={userProfile}
+          myProfile={true}
+          gameIcons={gameIcons}
+        />
+        <ProfileReviews
+          userProfile={userProfile}
+          myProfile={true}
+          gameIcons={gameIcons}
+        />
       </div>
     );
   } else if (userProfile) {
     return (
       <div className="profile-page">
-        <ProfileIcon userProfile={userProfile} myProfile={false} />
-        <ProfileGames userProfile={userProfile} myProfile={false} />
-        <ProfileReviews userProfile={userProfile} myProfile={false} />
+        <ProfileIcon
+          userProfile={userProfile}
+          myProfile={true}
+          gameIcons={gameIcons}
+        />
+        <ProfileGames
+          userProfile={userProfile}
+          myProfile={true}
+          gameIcons={gameIcons}
+        />
+        <ProfileReviews
+          userProfile={userProfile}
+          myProfile={true}
+          gameIcons={gameIcons}
+        />
       </div>
     );
   } else {

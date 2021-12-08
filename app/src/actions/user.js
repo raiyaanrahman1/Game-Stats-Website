@@ -111,6 +111,7 @@ export const signup = (username, password, setUser, setLoggedIn) => {
 };
 
 export const getUserProfile = (username, setUserProfile) => {
+  console.log(username);
   const request = new Request(`${API_HOST}/api/users/${username}`, {
     method: "get",
     headers: {
@@ -128,6 +129,7 @@ export const getUserProfile = (username, setUserProfile) => {
     })
     .then((json) => {
       if (json) {
+        console.log(json);
         setUserProfile(json);
         return json;
       }
@@ -135,4 +137,67 @@ export const getUserProfile = (username, setUserProfile) => {
     .catch((error) => {
       console.log(error);
     });
-}; 
+};
+
+export const updateDescription = (username, description) => {
+  const userObj = {
+    username: username,
+    description: description,
+  };
+
+  const request = new Request(`${API_HOST}/api/users/${username}/updateDesc`, {
+    method: "post",
+    body: JSON.stringify(userObj),
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+  });
+
+  fetch(request)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res);
+        return res.json();
+      }
+    })
+    .then((json) => {
+      if (json) {
+        console.log(json);
+        return json;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const likeGame = ({ user, gameId }) => {
+  if (!user) {
+    return;
+  }
+
+  const obj = { username: user, gameId: gameId };
+
+  const request = new Request(`${API_HOST}/api/users/${user}/likeGame`, {
+    method: "post",
+    body: JSON.stringify(obj),
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+  });
+
+  console.log(obj);
+
+  fetch(request)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res);
+        return res.json();
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

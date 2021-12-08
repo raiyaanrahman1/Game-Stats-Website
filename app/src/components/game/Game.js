@@ -4,6 +4,7 @@ import LikeBar from './LikeBar.js';
 import Reviews from './Reviews.js';
 import AddReview from './AddReview.js';
 import TestHardware from './TestHardware.js';
+import { likeGame } from '../../actions/user';
 
 class Game extends React.Component {
 
@@ -82,6 +83,7 @@ class Game extends React.Component {
     
     onClickLike = () => {
         console.log('like')
+        likeGame({user: user, gameId: this.gameID});
         if (this.state.userVoted === 0) {
             this.setState({numVotes: this.state.numVotes+1, numLikes: this.state.numLikes+1, userVoted: 1});
 
