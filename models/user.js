@@ -16,8 +16,8 @@ const UserSchema = new mongoose.Schema({
   },
   password: String,
   role: Number, // 1 = user, 2 = admin
-  likedGames: [],
-  dislikedGames: [],
+  likedGames: [{ type: String, unique: true }],
+  dislikedGames: [{ type: String, unique: true }],
 });
 
 UserSchema.pre("save", function (next) {

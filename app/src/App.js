@@ -15,6 +15,7 @@ import { checkSession } from "./actions/user";
 import PrivateRoute from "./components/PrivateRoute";
 import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
 import ENV from "./config";
+import { getAllGames } from "./actions/games";
 const API_HOST = ENV.api_host;
 let gamesSet = false;
 let gameList = [];
@@ -26,79 +27,10 @@ function App() {
   let [matchedTerms, setMatchedTerms] = useState([]);
   const [game_icons, setGameIcons] = useState([]);
 
-  checkSession({ app: this, setLoggedIn: setLoggedIn, setUser: setUser });
-
-  // useEffect(() => {
-  //   /******************Check Session**************************/
-  //   const url = `${API_HOST}/users/check-session`;
-
-  //   fetch(url)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         return res.json();
-  //       }
-  //     })
-  //     .then((json) => {
-  //       if (json && json.currentUser && json.role) {
-  //         console.log(json.role);
-  //         console.log(json.currentUser);
-  //         setLoggedIn(json.role);
-  //         setUser(json.currentUser);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("Not logged in.");
-  //     });
-  //   /********************************************/
-  // }, []);
-
-  if (!gamesSet) {
-    fetch("api/games")
-      .then((res) => {
-        if (res.ok) return res.json();
-        console.log("Couldn't get games");
-      })
-      .then((games) => {
-        console.log("got games");
-        let i = 0;
-        for (let game of games.games) {
-          let percent;
-          if (game.numVotes === 0) {
-            percent = 50;
-          } else {
-            percent = ((game.numLikes / game.numVotes) * 100).toFixed(0);
-          }
-
-          let colour;
-          if (percent < 50) {
-            colour = "red-percent";
-          } else if (percent < 75) {
-            colour = "yellow-percent";
-          } else {
-            colour = "green-percent";
-          }
-
-          game_icons.push(
-            <GameIcon
-              gameID={String(game._id)}
-              title={game.title}
-              publisher={game.publisher}
-              cover={game.coverArt}
-              size="game-icon-regular"
-              percent={percent}
-              percentColour={colour}
-              key={i}
-            />
-          );
-          i++;
-        }
-        gamesSet = true;
-        setGameIcons([...game_icons]);
-
-        // console.log(game_icons);
-      })
-      .catch((err) => console.log("Couldn't get games from db " + err));
-  }
+  useEffect(() => {
+    checkSession({ app: this, setLoggedIn: setLoggedIn, setUser: setUser });
+    getAllGames({ setGameIcons: setGameIcons });
+  }, []);
 
   console.log(user);
   console.log(loggedIn);
@@ -116,7 +48,10 @@ function App() {
           setMatchedTerms={setMatchedTerms}
         />
         <Switch>
-          <Route path="/game" component={Game} />
+          <Route
+            path="/game"
+            render={(props) => <Game {...props} user={user} />}
+          />
           <Route path="/charts" component={Charts} />
           <Route path="/signup">
             <SignUp
@@ -137,7 +72,9 @@ function App() {
           </Route>
           <Route
             path="/user/:username"
-            render={() => <Profile loggedIn={loggedIn} user={user} />}
+            render={() => (
+              <Profile loggedIn={loggedIn} user={user} gameIcons={game_icons} />
+            )}
           />
           <PrivateRouteAdmin
             path="/admin"

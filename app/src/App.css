@@ -196,6 +196,7 @@ a {
 .profile-page {
   display: inline-flex;
   flex-direction: row;
+  margin: 10px;
 }
 
 .profile-left {
@@ -203,8 +204,8 @@ a {
   background-image: linear-gradient(to bottom right, rgb(214, 198, 230), rgb(188, 147, 229));
   background-color: white;
   margin: 20px;
-  width: 250px;
-  height: 500px;
+  width: 400px;
+  height: 800px;
   padding: 5px;
   border: solid;
   border-width: 1px;
@@ -218,8 +219,8 @@ a {
   background-color: white;
   margin: 20px;
   margin-left: 5px;
-  width: 180px;
-  height: 500px;
+  width: 288;
+  height: 800px;
   padding: 5px;
   border: solid;
   border-width: 1px;
@@ -233,8 +234,8 @@ a {
   background-color: white;
   margin: 20px;
   margin-left: 5px;
-  width: 180px;
-  height: 500px;
+  width: 288px;
+  height: 800px;
   padding: 5px;
   border: solid;
   border-width: 1px;

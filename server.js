@@ -233,7 +233,73 @@ app.delete("/api/users", (req, res) => {
   res.status(200).send("Deleted.");
 });
 
+app.post("/api/users/:username/updateDesc", (req, res) => {
+  if (mongoose.connection.readyState != 1) {
+    log("Issue with mongoose connection");
+    res.status(500).send("Internal server error");
+    return;
+  }
+
+  const username = { username: req.body.username };
+  const newDescription = { description: req.body.description };
+
+  console.log(username);
+  console.log(newDescription);
+  User.findOne(username, { new: true })
+    .then((user) => {
+      console.log(user);
+      if (!user) {
+        res.status(400).send("Resource not found");
+      } else {
+        user.description = req.body.description;
+        user.save();
+      }
+    })
+    .catch((error) => {
+      log(error);
+      res.status(500).send("Internal Server Error");
+    });
+});
+
+app.post("/api/users/:username/likeGame", (req, res) => {
+  if (mongoose.connection.readyState != 1) {
+    log("Issue with mongoose connection");
+    res.status(500).send("Internal server error");
+    return;
+  }
+
+  const gameId = String(req.body.gameId);
+  const username = { username: req.body.username };
+
+  console.log(gameId);
+  console.log(username);
+
+  User.findOne(username)
+    .then((user) => {
+      if (!user) {
+        res.status(400).send("Resource not found");
+      } else {
+        const likedGames = user.likedGames;
+        likedGames.push(gameId);
+        user
+          .save()
+          .then(() => {
+            res.send({ likedGames: likedGames });
+          })
+          .catch((error) => {
+            log(error);
+            res.status(500).send("Internal Server Error");
+          });
+      }
+    })
+    .catch((error) => {
+      log(error);
+      res.status(500).send("Internal Server Error");
+    });
+});
+
 const GameRoute = require("./gameRouter.js");
+const { Game } = require("./models/game");
 app.use("/api/games", GameRoute);
 /*** Webpage routes below **********************************/
 // Serve the build
