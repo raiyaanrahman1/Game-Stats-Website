@@ -59,6 +59,9 @@ Clicking Games button will allow the Admin to add or edit a game. It starts on E
 -Users:
 Clicking Users button will allow the Admin to manage users. The admin can search up a user with the search bar. "Ban User' will remove the user from the database. 'Edit user profile' will let the Admin edit the User's profile information such as profile picture, username, and description. 'Edit User's reviews' will let the admin edit a review the user made. 
 
+### Sign Up:
+Signing up with a username and password adds a new regular user to the database and automatically logs you in as that user. Username have a maximum length of 10 characters
+
 ## -Server routes-
 
 # Session Routes
@@ -123,18 +126,6 @@ Method: GET
 Request: No body
 	
 Response: The user database document for this username
-	
-
-### /api/users ************************ Unused?
-	
-?
-	
-Method: DELETE
-	
-Request: 
-	
-Response:
-	
 
 ### /api/games
 	
