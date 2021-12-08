@@ -83,7 +83,7 @@ class Game extends React.Component {
     
     onClickLike = () => {
         console.log('like')
-        likeGame({user: user, gameId: this.gameID});
+        likeGame({ user: this.state.user, gameId: this.state.gameID });
         if (this.state.userVoted === 0) {
             this.setState({numVotes: this.state.numVotes+1, numLikes: this.state.numLikes+1, userVoted: 1});
 

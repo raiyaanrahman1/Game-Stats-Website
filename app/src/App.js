@@ -49,24 +49,13 @@ function App() {
           setMatchedTerms={setMatchedTerms}
         />
         <Switch>
-<<<<<<< HEAD
-          <Route path="/game" 
-            render={(props) => (
-              <Game {...props} user={user} />
-            )} 
-          />
-          <Route path="/charts">
-            <Charts 
-              games={games}
-            />
-          </Route>
-=======
           <Route
             path="/game"
             render={(props) => <Game {...props} user={user} />}
           />
-          <Route path="/charts" component={Charts} />
->>>>>>> profile-branch
+          <Route path="/charts">
+            <Charts games={games} />
+          </Route>
           <Route path="/signup">
             <SignUp
               loggedIn={loggedIn}
