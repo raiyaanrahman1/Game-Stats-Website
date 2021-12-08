@@ -302,7 +302,6 @@ app.post("/api/users/:username/likeGame", (req, res) => {
 });
 
 const GameRoute = require("./gameRouter.js");
-const { Game } = require("./models/game");
 app.use("/api/games", GameRoute);
 
 // get review by gameId
