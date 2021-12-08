@@ -57,8 +57,6 @@ GameRoutes.post("/", (req, res) => {
     coverArt: req.body.coverArt,
     numVotes: req.body.numVotes,
     numLikes: req.body.numLikes,
-    numReviews: req.body.numReviews,
-    reviews: req.body.reviews,
   });
 
   game.save().then(

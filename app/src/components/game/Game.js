@@ -25,7 +25,7 @@ class Game extends React.Component {
                 coverArt: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg', // sample image
                 numVotes: 5,    // we dont need numDislikes because it can be calculated
                 numLikes: 3,
-                numReviews: 1,
+                // numReviews: 1,
             //},
             userVoted: 0, // 0: not yet voted, 1: like, -1: dislike
             showReview: 0,
@@ -45,7 +45,7 @@ class Game extends React.Component {
 
         const query = new URLSearchParams(this.props.location.search);
         const gameID = query.get('ID');
-        
+
         if (this.state.gameID !== gameID || this.state.gameID === -1) {
             console.log(gameID)
             fetch("api/games/" + gameID) 
@@ -69,7 +69,7 @@ class Game extends React.Component {
                             coverArt: data[0].coverArt,
                             numVotes: data[0].numVotes,
                             numLikes: data[0].numLikes,
-                            numReviews: data[0].numReviews,
+                            // numReviews: data[0].numReviews,
                             //reviews: data[0].reviews,
                         })
                     }

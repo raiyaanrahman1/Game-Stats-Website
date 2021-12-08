@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const AddReview = (props) => {
     const { showReview, close, gameId, user} = props;
     const [reviewText, setReviewText] = useState("");
+    const [cpuMark, setCPUMark] = useState()
     
 
 
@@ -12,7 +13,8 @@ const AddReview = (props) => {
         const reviewData = {
             user: user,
             game: gameId,
-            content: reviewText
+            content: reviewText,
+            cpuMark: cpuMark
         }
         console.log(reviewData);
 
@@ -42,6 +44,10 @@ const AddReview = (props) => {
                     className="game-addReview-input"
                     value={reviewText}
                     onChange={e => setReviewText(e.target.value)} />
+                <label>
+                    CPU mark:
+                    <input type="number" value={cpuMark} onChange={e => setCPUMark(e.target.value)} />
+                </label>
             </label> <br/>
             <input type="submit" value="Submit" />
             <button onClick={props.close}>Cancel</button>

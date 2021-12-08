@@ -199,6 +199,7 @@ app.get("/api/users", (req, res) => {
     });
 });
 
+// search user by username
 app.get(("/api/users/:username") , (req, res) => {
   const username = req.params.username;
 
@@ -272,6 +273,7 @@ app.get("/api/review/user/:username", (req, res) => {
       user: <user name>
       game: <game id>
       content: <review content>
+      cpuMark: <user assessment of their hardware power>
     }
 */
 app.post("/api/review", (req, res) => {
@@ -279,7 +281,8 @@ app.post("/api/review", (req, res) => {
   const review = new Review({
     user: req.body.user,
     game: req.body.game,
-    content: req.body.content
+    content: req.body.content,
+    cpuMark: req.body.cpuMark
   })
 
   review.save().then(
