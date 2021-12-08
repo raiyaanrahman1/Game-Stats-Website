@@ -17,7 +17,7 @@ function AdminUsers() {
     }
   }).then(users => {
     setUsers(users);
-  })
+  }).catch(err => {console.log(err)});
   return (
     <div className="admin-settings">
       <form className="admin-users-search" onSubmit={(e)=> {
