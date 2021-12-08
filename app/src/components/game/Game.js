@@ -11,12 +11,9 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
 
-
-        // Get game info based on gameID from server
-        // Check userVoted
-
         this.state = {
-            user: this.props.user,
+            userName: "",
+            userInfo: "",
             //gameData: {
                 gameID: -1,
                 title: "Game -1",
@@ -33,21 +30,91 @@ class Game extends React.Component {
             showTHW: 0,
         }
         this.setState = this.setState.bind(this);
+
     }
 
     componentDidMount() {
-        this.componentDidUpdate()
+        // get the game info
+        const query = new URLSearchParams(this.props.location.search);
+        const gameID = query.get('ID');
+        fetch("api/games/" + gameID) 
+            .then((response) => { 
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    console.log("Invalid gameID")
+                    return Promise.reject("Invalid gameID")
+                }
+            })
+            .then((data) => {
+                console.log(data)
+                if (data) {
+                    this.setState({
+                        gameID: gameID,
+                        title: data[0].title,
+                        publisher: data[0].publisher,
+                        genres: data[0].genres,
+                        description: data[0].description,
+                        coverArt: data[0].coverArt,
+                        numVotes: data[0].numVotes,
+                        numLikes: data[0].numLikes,
+                        // numReviews: data[0].numReviews,
+                        //reviews: data[0].reviews,
+                    })
+                }
+            })
+            .catch(err => {
+                console.error("Failed to fetch", err)
+            })
+
+        // Get get user info if it available
+        if (this.props.user) {
+            const userName = this.props.user
+            
+            fetch("/api/users/"+userName).then((response) => { 
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    console.log("Invalid user name")
+                    return Promise.reject("Invalid user name")
+                }
+            }).then((data) => {
+                console.log(data)
+                let userVoted = 0;
+                if (data.likedGames.includes(gameID)) {userVoted = 1}
+                else if (data.dislikedGames.includes(gameID)) {userVoted = -1}
+                this.setState({userName: userName, userInf: data, userVoted: userVoted})
+            })
+
+        }
+
     }
 
     componentDidUpdate(prevProps) {
-        if (!this.state.user && this.props.user) {
-            this.setState({user: this.props.user})
+        if (this.state.userName !== this.props.user) {
+            console.log(this.state.userName, this.props.user)
+            const userName = this.props.user
+            console.log(userName)
+            fetch("/api/users/"+userName).then((response) => { 
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    console.log("Invalid user name")
+                    return Promise.reject("Invalid user name")
+                }
+            }).then((data) => {
+                let userVoted = 0;
+                if (data.likedGames.includes(gameID)) {userVoted = 1}
+                else if (data.dislikedGames.includes(gameID)) {userVoted = -1}
+                this.setState({userName: userName, userInf: data, userVoted: userVoted})
+            })
+
         }
 
         const query = new URLSearchParams(this.props.location.search);
         const gameID = query.get('ID');
 
-        if (this.state.gameID !== gameID || this.state.gameID === -1) {
+        if (this.state.gameID !== gameID ) {
             console.log(gameID)
             fetch("api/games/" + gameID) 
                 .then((response) => { 
@@ -61,6 +128,12 @@ class Game extends React.Component {
                 .then((data) => {
                     console.log(data)
                     if (data) {
+                        let userVoted = 0;
+                        if (this.state.userInfo) {
+                            if (data.likedGames.includes(gameID)) {userVoted = 1}
+                            else if (data.dislikedGames.includes(gameID)) {userVoted = -1}
+                        }
+                        
                         this.setState({
                             gameID: gameID,
                             title: data[0].title,
@@ -70,6 +143,7 @@ class Game extends React.Component {
                             coverArt: data[0].coverArt,
                             numVotes: data[0].numVotes,
                             numLikes: data[0].numLikes,
+                            userVoted: userVoted
                             // numReviews: data[0].numReviews,
                             //reviews: data[0].reviews,
                         })
@@ -78,12 +152,18 @@ class Game extends React.Component {
                 .catch(err => {
                     console.error("Failed to fetch", err)
                 })
-                }
+        }
     }
     
     onClickLike = () => {
+        if (!this.state.userName) {return}
+
         console.log('like')
-        likeGame({ user: this.state.user, gameId: this.state.gameID });
+        fetch("/api/rate/"+this.state.gameID, { 
+            method: 'PUT', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({user: this.state.userName, rate: 1})
+        }).then(response => {console.log(response.json())})
         if (this.state.userVoted === 0) {
             this.setState({numVotes: this.state.numVotes+1, numLikes: this.state.numLikes+1, userVoted: 1});
 
@@ -93,7 +173,15 @@ class Game extends React.Component {
     }
     
     onClickDislike = () => {
+        if (!this.state.userName) {return}
         console.log('dislike')
+
+        fetch("/api/rate/"+this.state.gameID, { 
+            method: 'PUT', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({user: this.state.userName, rate: -1})
+        }).then(response => {console.log(response.json())})
+
         if (this.state.userVoted ===0) {
             this.setState({numVotes: this.state.numVotes+1, userVoted: -1});
         } else if (this.state.userVoted === 1) {
@@ -113,7 +201,7 @@ class Game extends React.Component {
 
     
     render() {
-        console.log(this.state.user)
+        console.log(this.state.userName)
         return (
             <div className="game-main">
                 <img src={this.state.coverArt} alt="Cover" className = "game-cover"/>
@@ -131,7 +219,7 @@ class Game extends React.Component {
                 
                     
                 </div>
-                {this.state.user && (
+                {this.state.userName && (
                     <div className = "game-buttons"> 
                         <button className = "game-button" onClick={this.ShowReviewToggle}> <span title="Write a Review">✎ Write a Review</span></button>
                         <button className = "game-button" onClick={this.showTHWToggle}><span title="Test my Hardware">☑ Test My Hardware</span></button>
@@ -141,9 +229,9 @@ class Game extends React.Component {
                 <Reviews gameID={this.state.gameID}/>
 
 
-                <AddReview showReview={this.state.showReview} gameId={this.state.gameID} user={this.state.user} close={this.ShowReviewToggle}/>
+                <AddReview showReview={this.state.showReview} gameId={this.state.gameID} user={this.state.userName} close={this.ShowReviewToggle}/>
 
-                <TestHardware gameID={this.state.gameID} showTHW={this.state.showTHW} userID={this.state.userID} close={this.showTHWToggle}/>
+                <TestHardware gameID={this.state.gameID} showTHW={this.state.showTHW} userID={this.state.userName} close={this.showTHWToggle}/>
 
             </div>
             

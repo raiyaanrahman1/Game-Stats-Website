@@ -13,8 +13,6 @@ const Game = mongoose.model('Game', {
 	coverArt: String, // image url
 	numVotes: Number,  
 	numLikes: Number,
-	numReviews: Number,
-	reviews: [], // TODO: TBD
 })
 
 module.exports = { Game }
