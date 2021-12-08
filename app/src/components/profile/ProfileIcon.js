@@ -59,9 +59,7 @@ const ProfileIcon = ({ userProfile, myProfile }) => {
           <p></p>
         )}
       </div>
-      <div className="profile-hardware">
-        <h6>Hardware goes here, idk how we wanna format this tbh</h6>
-      </div>
+      <div className="profile-hardware"></div>
     </div>
   );
 };
