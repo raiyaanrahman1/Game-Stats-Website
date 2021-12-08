@@ -45,12 +45,12 @@ function AdminUsers() {
           </div>
         </div>
         <div>
-          <button className="admin-ban-user-button"> Ban User </button>
+          {/* <button className="admin-ban-user-button"> Ban User </button>
           <button className="admin-ban-user-button"> Edit User Profile </button>
           <button className="admin-ban-user-button">
             {" "}
             Edit User's Reviews{" "}
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

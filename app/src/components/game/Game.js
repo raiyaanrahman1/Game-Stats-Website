@@ -135,7 +135,7 @@ class Game extends React.Component {
                     <div className = "game-buttons"> 
                         <button className = "game-button" onClick={this.ShowReviewToggle}> <span title="Write a Review">✎ Write a Review</span></button>
                         <button className = "game-button" onClick={this.showTHWToggle}><span title="Test my Hardware">☑ Test My Hardware</span></button>
-                        <button className = "game-button"onClick={()=>{console.log("Not implemented")}}><span title="Add to Favourites">✰ Add to Favorites</span></button>
+                        {/* <button className = "game-button"onClick={()=>{console.log("Not implemented")}}><span title="Add to Favourites">✰ Add to Favorites</span></button> */}
                     </div>
                 )}
                 <Reviews gameID={this.state.gameID}/>
